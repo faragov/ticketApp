@@ -3,8 +3,8 @@ package com.greenfox.avushugsformybugs.Models.Entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "products")
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,11 +12,12 @@ public class User {
 
     private String name;
 
-    private String email;
+    private int price;
 
-    private String password;
+    private int duration;
 
-    private boolean isAdmin;
+    private String description;
 
-    private boolean isVerified;
+    private String type;
+
 }
