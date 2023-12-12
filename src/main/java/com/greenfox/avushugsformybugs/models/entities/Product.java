@@ -1,4 +1,4 @@
-package com.greenfox.avushugsformybugs.Models.Entities;
+package com.greenfox.avushugsformybugs.models.entities;
 
 import jakarta.persistence.*;
 

@@ -1,6 +1,6 @@
-package com.greenfox.avushugsformybugs.Models.Entities;
+package com.greenfox.avushugsformybugs.models.entities;
 
-import com.greenfox.avushugsformybugs.Models.Enums.Status;
+import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -13,7 +13,7 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    private Status status;
+    private PurchaseStatus status;
 
     private Date orderDate;
 }
