@@ -17,4 +17,14 @@ public class Purchase {
     private PurchaseStatus status;
 
     private Date orderDate;
+
+    private Date activateDate;
+
+    @ManyToOne
+    @JoinColumn(name="product_id")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 }
