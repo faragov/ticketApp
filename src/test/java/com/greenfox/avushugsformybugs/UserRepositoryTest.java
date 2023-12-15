@@ -21,33 +21,33 @@ import static org.junit.Assert.assertTrue;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UserRepositoryTest {
 
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired
+  private UserRepository userRepository;
 
-    private User user;
+  private User user;
 
-    @BeforeEach
-    public void setupTestData(){
-        user = new User();
-    }
+  @BeforeEach
+  public void setupTestData() {
+    user = new User();
+  }
 
-    @Test
-    public void findAllUsers(){
+  @Test
+  public void findAllUsers() {
 
-        userRepository.save(user);
+    userRepository.save(user);
 
-        List<User> userList = userRepository.findAll();
+    List<User> userList = userRepository.findAll();
 
-        assertFalse(userList.isEmpty());
-    }
+    assertFalse(userList.isEmpty());
+  }
 
-    @Test
-    public void findUserByIdTest(){
+  @Test
+  public void findUserByIdTest() {
 
-        userRepository.save(user);
+    userRepository.save(user);
 
-        Optional<User> foundUser = userRepository.findById(Long.parseLong("1"));
+    Optional<User> foundUser = userRepository.findById(Long.parseLong("1"));
 
-        assertTrue(foundUser.isPresent());
-    }
+    assertTrue(foundUser.isPresent());
+  }
 }

@@ -20,33 +20,33 @@ import static org.junit.Assert.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ProductRepositoryTest {
 
-    @Autowired
-    private ProductRepository productRepository;
+  @Autowired
+  private ProductRepository productRepository;
 
-    private Product product;
+  private Product product;
 
-    @BeforeEach
-    public void setupTestData(){
-        product = new Product();
-    }
+  @BeforeEach
+  public void setupTestData() {
+    product = new Product();
+  }
 
-    @Test
-    public void findAllProducts(){
+  @Test
+  public void findAllProducts() {
 
-        productRepository.save(product);
+    productRepository.save(product);
 
-        List<Product> productList = productRepository.findAll();
+    List<Product> productList = productRepository.findAll();
 
-        assertFalse(productList.isEmpty());
-    }
+    assertFalse(productList.isEmpty());
+  }
 
-    @Test
-    public void findProductById(){
+  @Test
+  public void findProductById() {
 
-        productRepository.save(product);
+    productRepository.save(product);
 
-        Optional<Product> foundProduct = productRepository.findById(Long.parseLong("1"));
+    Optional<Product> foundProduct = productRepository.findById(Long.parseLong("1"));
 
-        assertTrue(foundProduct.isPresent());
-    }
+    assertTrue(foundProduct.isPresent());
+  }
 }

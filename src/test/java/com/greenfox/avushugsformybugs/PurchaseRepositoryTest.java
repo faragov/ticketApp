@@ -21,33 +21,33 @@ import static org.junit.Assert.assertTrue;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class PurchaseRepositoryTest {
 
-    @Autowired
-    private PurchaseRepository purchaseRepository;
+  @Autowired
+  private PurchaseRepository purchaseRepository;
 
-    private Purchase purchase;
+  private Purchase purchase;
 
-    @BeforeEach
-    public void setupTestData(){
-        purchase = new Purchase();
-    }
+  @BeforeEach
+  public void setupTestData() {
+    purchase = new Purchase();
+  }
 
-    @Test
-    public void findAllPurchases(){
+  @Test
+  public void findAllPurchases() {
 
-        purchaseRepository.save(purchase);
+    purchaseRepository.save(purchase);
 
-        List<Purchase> purchaseList = purchaseRepository.findAll();
+    List<Purchase> purchaseList = purchaseRepository.findAll();
 
-        assertFalse(purchaseList.isEmpty());
-    }
+    assertFalse(purchaseList.isEmpty());
+  }
 
-    @Test
-    public void findPurchaseById(){
+  @Test
+  public void findPurchaseById() {
 
-        purchaseRepository.save(purchase);
+    purchaseRepository.save(purchase);
 
-        Optional<Purchase> foundPurchase = purchaseRepository.findById(Long.parseLong("1"));
+    Optional<Purchase> foundPurchase = purchaseRepository.findById(Long.parseLong("1"));
 
-        assertTrue(foundPurchase.isPresent());
-    }
+    assertTrue(foundPurchase.isPresent());
+  }
 }
