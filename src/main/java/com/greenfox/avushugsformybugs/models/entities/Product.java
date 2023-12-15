@@ -2,6 +2,8 @@ package com.greenfox.avushugsformybugs.models.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -20,4 +22,10 @@ public class Product {
 
     private String type;
 
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(name = "product_id")
+    private Set<Purchase> purchases;
 }
