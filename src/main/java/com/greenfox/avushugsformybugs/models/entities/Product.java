@@ -8,24 +8,24 @@ import java.util.Set;
 @Table(name = "products")
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long Id;
 
-    private String name;
+  private String name;
 
-    private int price;
+  private int price;
 
-    private int duration;
+  private int duration;
 
-    private String description;
+  private String description;
 
-    private String type;
+  private String type;
 
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL
-    )
-    @JoinColumn(name = "product_id")
-    private Set<Purchase> purchases;
+  @OneToMany(
+          fetch = FetchType.LAZY,
+          cascade = CascadeType.ALL
+  )
+  @JoinColumn(name = "product_id")
+  private Set<Purchase> purchases;
 }
