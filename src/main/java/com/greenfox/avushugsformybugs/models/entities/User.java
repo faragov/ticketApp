@@ -8,24 +8,24 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long Id;
 
-    private String name;
+  private String name;
 
-    private String email;
+  private String email;
 
-    private String password;
+  private String password;
 
-    private boolean isAdmin;
+  private boolean isAdmin;
 
-    private boolean isVerified;
+  private boolean isVerified;
 
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL
-    )
-    @JoinColumn(name = "user_id")
-    private Set<Purchase> purchases;
+  @OneToMany(
+          fetch = FetchType.LAZY,
+          cascade = CascadeType.ALL
+  )
+  @JoinColumn(name = "user_id")
+  private Set<Purchase> purchases;
 }
