@@ -1,4 +1,5 @@
 package com.greenfox.avushugsformybugs.authentication;
+
 import com.greenfox.avushugsformybugs.config.JwtService;
 import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.repositories.UserRepository;
