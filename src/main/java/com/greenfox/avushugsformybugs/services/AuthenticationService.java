@@ -5,6 +5,7 @@ import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationRequest;
 import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationResponse;
 import com.greenfox.avushugsformybugs.dtos.auth.RegisterRequest;
 import com.greenfox.avushugsformybugs.models.entities.User;
+import com.greenfox.avushugsformybugs.models.enums.Role;
 import com.greenfox.avushugsformybugs.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,7 +33,7 @@ public class AuthenticationService {
     user.setName(request.getName());
     user.setEmail(request.getEmail());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
-    user.setAdmin(false);
+    user.setRole(Role.USER);
     repository.save(user);
 
     String jwtToken = jwtService.generateToken(user);
