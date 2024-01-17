@@ -17,11 +17,11 @@ repositories {
 }
 
 dependencies {
-<<<<<<< HEAD
+
     implementation ("io.github.cdimascio:dotenv-java:3.0.0")
-=======
+
     implementation("io.github.cdimascio:dotenv-java:3.0.0")
->>>>>>> 9ccf65c1ae947b57c4a6b3b21e19817e2b442c08
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("junit:junit:4.13.1")
