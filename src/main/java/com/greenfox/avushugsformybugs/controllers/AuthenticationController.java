@@ -1,5 +1,9 @@
-package com.greenfox.avushugsformybugs.authentication;
+package com.greenfox.avushugsformybugs.controllers;
 
+import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationRequest;
+import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationResponse;
+import com.greenfox.avushugsformybugs.services.AuthenticationService;
+import com.greenfox.avushugsformybugs.dtos.auth.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

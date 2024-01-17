@@ -1,4 +1,4 @@
-package com.greenfox.avushugsformybugs.authentication;
+package com.greenfox.avushugsformybugs.dtos.auth;
 
 public class AuthenticationRequest {
 

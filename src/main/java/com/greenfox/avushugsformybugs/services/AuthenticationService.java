@@ -1,6 +1,9 @@
-package com.greenfox.avushugsformybugs.authentication;
+package com.greenfox.avushugsformybugs.services;
 
-import com.greenfox.avushugsformybugs.config.JwtService;
+import com.greenfox.avushugsformybugs.config.jwt.JwtService;
+import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationRequest;
+import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationResponse;
+import com.greenfox.avushugsformybugs.dtos.auth.RegisterRequest;
 import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
