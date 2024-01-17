@@ -1,5 +1,6 @@
 package com.greenfox.avushugsformybugs.models.entities;
 
+import com.greenfox.avushugsformybugs.models.enums.Role;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +22,8 @@ public class User implements UserDetails {
 
   private String password;
 
-  private boolean isAdmin;
+  @Enumerated(EnumType.STRING)
+  private Role role;
 
   private boolean isVerified;
 
@@ -82,8 +84,8 @@ public class User implements UserDetails {
     this.password = password;
   }
 
-  public void setAdmin(boolean admin) {
-    isAdmin = admin;
+  public void setRole(Role role) {
+    this.role = role;
   }
 
   public void setVerified(boolean verified) {
