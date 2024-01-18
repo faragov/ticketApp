@@ -1,5 +1,6 @@
 package com.greenfox.avushugsformybugs.controllers;
 
+import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
 import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationRequest;
 import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationResponse;
 import com.greenfox.avushugsformybugs.services.AuthenticationService;
@@ -23,10 +24,10 @@ public class AuthenticationController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponse> register(
+  public ResponseEntity<SuccessMessage> register(
           @RequestBody RegisterRequest request
   ) {
-    return ResponseEntity.ok(service.register(request));
+    return ResponseEntity.ok(new SuccessMessage("successful registration"));
   }
 
   @PostMapping("/authenticate")
