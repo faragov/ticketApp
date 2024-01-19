@@ -22,6 +22,13 @@ public class Product {
 
   private String type;
 
+  @OneToMany(
+          fetch = FetchType.LAZY,
+          cascade = CascadeType.ALL
+  )
+  @JoinColumn(name = "product_id")
+  private Set<Purchase> purchases;
+
   public Long getId(){
     return this.Id;
   }
@@ -45,11 +52,4 @@ public class Product {
   public String getType(){
     return this.type;
   }
-
-  @OneToMany(
-          fetch = FetchType.LAZY,
-          cascade = CascadeType.ALL
-  )
-  @JoinColumn(name = "product_id")
-  private Set<Purchase> purchases;
 }

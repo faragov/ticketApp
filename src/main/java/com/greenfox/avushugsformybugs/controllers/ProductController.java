@@ -24,12 +24,7 @@ public class ProductController {
 
   @GetMapping("/products")
   public ResponseEntity getProducts(){
-    List<Product> productList = productService.getAllProducts();
-    List<GetProductDTO> productDTOList = new ArrayList<>();
-    for(int i=0;i<productList.size();i++){
-      productDTOList.add(new GetProductDTO(productList.get(i)));
-    }
-    GetProductListDTO productListDTO = new GetProductListDTO(productDTOList);
+    GetProductListDTO productListDTO = productService.listAllProducts();
     return ResponseEntity.status(200).body(productListDTO);
   }
 }
