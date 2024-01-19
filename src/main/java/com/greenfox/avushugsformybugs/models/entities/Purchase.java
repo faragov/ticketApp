@@ -13,7 +13,7 @@ public class Purchase {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long Id;
 
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private PurchaseStatus status;
 
   private Date orderDate;
