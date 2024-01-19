@@ -1,6 +1,7 @@
 package com.greenfox.avushugsformybugs.services;
 
 import com.greenfox.avushugsformybugs.config.jwt.JwtService;
+import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
 import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationRequest;
 import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationResponse;
 import com.greenfox.avushugsformybugs.dtos.auth.RegisterRequest;
@@ -28,7 +29,7 @@ public class AuthenticationService {
     this.authenticationManager = authenticationManager;
   }
 
-  public AuthenticationResponse register(RegisterRequest request) {
+  public SuccessMessage register(RegisterRequest request) {
     User user = new User();
     user.setName(request.getName());
     user.setEmail(request.getEmail());
@@ -38,9 +39,8 @@ public class AuthenticationService {
 
     String jwtToken = jwtService.generateToken(user);
 
-    AuthenticationResponse currentResponse = new AuthenticationResponse();
-    currentResponse.setToken(jwtToken);
-    return currentResponse;
+    SuccessMessage message = new SuccessMessage("Successful registration");
+    return message;
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
