@@ -22,6 +22,30 @@ public class Product {
 
   private String type;
 
+  public Long getId(){
+    return this.Id;
+  }
+
+  public String getName(){
+    return this.name;
+  }
+
+  public int getPrice(){
+    return this.price;
+  }
+
+  public int getDuration(){
+    return this.duration;
+  }
+
+  public String getDescription(){
+    return this.description;
+  }
+
+  public String getType(){
+    return this.type;
+  }
+
   @OneToMany(
           fetch = FetchType.LAZY,
           cascade = CascadeType.ALL
