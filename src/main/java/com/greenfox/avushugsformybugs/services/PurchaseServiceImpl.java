@@ -1,7 +1,6 @@
 package com.greenfox.avushugsformybugs.services;
 
 import com.greenfox.avushugsformybugs.dtos.PurchaseDto;
-import com.greenfox.avushugsformybugs.models.entities.Product;
 import com.greenfox.avushugsformybugs.models.entities.Purchase;
 import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
 import com.greenfox.avushugsformybugs.repositories.PurchaseRepository;
@@ -15,38 +14,36 @@ import java.util.Set;
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
 
-  private final PurchaseRepository purchaseRepository;
+    private final PurchaseRepository purchaseRepository;
 
-  @Autowired
-  public PurchaseServiceImpl(PurchaseRepository purchaseRepository) {
-    this.purchaseRepository = purchaseRepository;
-  }
-
-  @Override
-  public List<Purchase> findPurchaseByUserIdAndStatus(Long userId, PurchaseStatus status) {
-    return purchaseRepository.findPurchaseByUserIdAndStatus(userId, status);
-  }
-
-  @Override
-  public List<PurchaseDto> getPurchaseDtos(Long userId, PurchaseStatus status) {
-    List<Purchase> purchaseList = findPurchaseByUserIdAndStatus(userId, status);
-    List<Product> productList = findPurchaseByUserIdAndStatus(userId, status);
-    List<PurchaseDto> dtoList = new ArrayList<>();
-    PurchaseDto purchaseDto = new PurchaseDto();
-    for (int i = 0; i < purchaseList.size(); i++) {
-      purchaseDto.setId(purchaseList.get(i).getId());
-      purchaseDto.setStatus(purchaseList.get(i).getStatus());
-      purchaseDto.setOrderDate(purchaseList.get(i).getOrderDate());
-      purchaseDto.setActivateDate(purchaseList.get(i).getActivateDate());
-      dtoList.add(purchaseDto);
+    @Autowired
+    public PurchaseServiceImpl(PurchaseRepository purchaseRepository) {
+        this.purchaseRepository = purchaseRepository;
     }
-    for (int j = 0; j < productList.size(); j++) {
-      purchaseDto.setProductName(productList.get(j).getName());
-      purchaseDto.setProductPrice(productList.get(j).getPrice());
-      purchaseDto.setProductDuration(productList.get(j).getDuration());
-      purchaseDto.setProductType(productList.get(j).getType());
-      dtoList.add(purchaseDto);
+
+    @Override
+    public Set<Purchase> findPurchaseByUserIdAndStatus(Long userId, PurchaseStatus status) {
+        return purchaseRepository.findPurchaseByUserIdAndStatus(userId, status);
     }
-    return dtoList;
-  }
+
+    @Override
+    public List<PurchaseDto> getPurchaseDtos(Long userId, PurchaseStatus status) {
+        Set<Purchase> purchaseList = findPurchaseByUserIdAndStatus(userId, status);
+        Purchase purchase = new Purchase();
+        List<PurchaseDto> dtoList = new ArrayList<>();
+        for (int i = 0; i < purchaseList.size(); i++) {
+            PurchaseDto purchaseDto = new PurchaseDto();
+            purchaseDto.setId(purchase.getId());
+            purchaseDto.setStatus(purchase.getStatus());
+            purchaseDto.setOrderDate(purchase.getOrderDate());
+            purchaseDto.setActivateDate(purchase.getActivateDate());
+            purchaseDto.setProductName(purchase.getProduct().getName());
+            purchaseDto.setProductPrice(purchase.getProduct().getPrice());
+            purchaseDto.setProductDuration(purchase.getProduct().getDuration());
+            purchaseDto.setProductType(purchase.getProduct().getType());
+
+            dtoList.add(purchaseDto);
+        }
+        return dtoList;
+    }
 }

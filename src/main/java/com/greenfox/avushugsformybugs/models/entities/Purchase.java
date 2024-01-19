@@ -59,4 +59,12 @@ public class Purchase {
   public void setActivateDate(Date activateDate) {
     this.activateDate = activateDate;
   }
+
+  public Product getProduct() {
+    return product;
+  }
+
+  public void setProduct(Product product) {
+    this.product = product;
+  }
 }

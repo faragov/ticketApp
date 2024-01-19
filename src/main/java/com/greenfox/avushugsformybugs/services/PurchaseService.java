@@ -9,7 +9,7 @@ import java.util.Set;
 
 public interface PurchaseService {
 
-    List<Purchase> findPurchaseByUserIdAndStatus(Long userId, PurchaseStatus status);
+    Set<Purchase> findPurchaseByUserIdAndStatus(Long userId, PurchaseStatus status);
 
     List<PurchaseDto> getPurchaseDtos(Long userId, PurchaseStatus status);
 }

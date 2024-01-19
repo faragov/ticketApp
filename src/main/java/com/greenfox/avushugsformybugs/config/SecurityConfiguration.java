@@ -31,6 +31,8 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(authorizeHttpRequests ->
                     authorizeHttpRequests.requestMatchers("api/v1/auth/**")
                             .permitAll()
+                            .requestMatchers("api/purchases")
+                            .authenticated()
                             .anyRequest()
                             .authenticated()
             )
