@@ -6,6 +6,8 @@ import com.greenfox.avushugsformybugs.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ProductServiceImpl implements ProductService {
   private final ProductRepository productRepository;
@@ -26,5 +28,29 @@ public class ProductServiceImpl implements ProductService {
     product.setDescription(newProductDTO.getDescription());
 
     productRepository.save(product);
+  }
+
+  @Override
+  public void deleteProduct(Long id) {
+
+    Optional<Product> product = productRepository.findById(id);
+    if (product.isPresent()) {
+      Product foundProduct = product.get();
+      productRepository.delete(foundProduct);
+    }
+  }
+
+  @Override
+  public void editProduct(Long id, NewProductDTO newProductDTO) {
+    Optional<Product> foundProduct = productRepository.findById(id);
+    if (foundProduct.isPresent()) {
+      foundProduct.get().setName(newProductDTO.getName());
+      foundProduct.get().setDuration(newProductDTO.getDuration());
+      foundProduct.get().setType(newProductDTO.getType());
+      foundProduct.get().setPrice(newProductDTO.getPrice());
+      foundProduct.get().setDescription(newProductDTO.getDescription());
+
+      productRepository.save(foundProduct.get());
+    }
   }
 }

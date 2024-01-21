@@ -7,9 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductController {
@@ -27,5 +25,21 @@ public class ProductController {
     productService.convertDtoToProduct(newProductDTO);
 
     return new ResponseEntity(new SuccessMessage("Successfully posted"), HttpStatus.CREATED);
+  }
+
+  @DeleteMapping("/admin/product/{id}")
+  public ResponseEntity deleteProductById(@PathVariable Long id) {
+
+    productService.deleteProduct(id);
+
+    return new ResponseEntity(new SuccessMessage("Successfully deleted"), HttpStatus.OK);
+  }
+
+  @PutMapping("/admin/product/{id}")
+  public ResponseEntity editProduct(@PathVariable Long id, @Valid @RequestBody NewProductDTO newProductDTO) {
+
+    productService.editProduct(id, newProductDTO);
+
+    return new ResponseEntity(new SuccessMessage("Successfully changed"), HttpStatus.CREATED);
   }
 }
