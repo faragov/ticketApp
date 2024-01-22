@@ -1,5 +1,6 @@
 package com.greenfox.avushugsformybugs.services;
 
+import com.greenfox.avushugsformybugs.dtos.EditProductDTO;
 import com.greenfox.avushugsformybugs.dtos.NewProductDTO;
 import com.greenfox.avushugsformybugs.models.entities.Product;
 import com.greenfox.avushugsformybugs.repositories.ProductRepository;
@@ -41,14 +42,24 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public void editProduct(Long id, NewProductDTO newProductDTO) {
+  public void editProduct(Long id, EditProductDTO editProductDTO) {
     Optional<Product> foundProduct = productRepository.findById(id);
     if (foundProduct.isPresent()) {
-      foundProduct.get().setName(newProductDTO.getName());
-      foundProduct.get().setDuration(newProductDTO.getDuration());
-      foundProduct.get().setType(newProductDTO.getType());
-      foundProduct.get().setPrice(newProductDTO.getPrice());
-      foundProduct.get().setDescription(newProductDTO.getDescription());
+      if (editProductDTO.getName() != null) {
+        foundProduct.get().setName(editProductDTO.getName());
+      }
+      if (editProductDTO.getDuration() != null) {
+        foundProduct.get().setDuration(editProductDTO.getDuration());
+      }
+      if (editProductDTO.getType() != null) {
+        foundProduct.get().setType(editProductDTO.getType());
+      }
+      if (editProductDTO.getPrice() != null) {
+        foundProduct.get().setPrice(editProductDTO.getPrice());
+      }
+      if (editProductDTO.getDescription() != null) {
+        foundProduct.get().setDescription(editProductDTO.getDescription());
+      }
 
       productRepository.save(foundProduct.get());
     }

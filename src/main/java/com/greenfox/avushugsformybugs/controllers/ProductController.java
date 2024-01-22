@@ -1,5 +1,6 @@
 package com.greenfox.avushugsformybugs.controllers;
 
+import com.greenfox.avushugsformybugs.dtos.EditProductDTO;
 import com.greenfox.avushugsformybugs.dtos.NewProductDTO;
 import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
 import com.greenfox.avushugsformybugs.models.entities.Product;
@@ -38,9 +39,9 @@ public class ProductController {
   }
 
   @PutMapping("/admin/product/{id}")
-  public ResponseEntity editProduct(@PathVariable Long id, @Valid @RequestBody NewProductDTO newProductDTO) {
+  public ResponseEntity editProduct(@PathVariable Long id, @Valid @RequestBody EditProductDTO editProductDTO) {
 
-    productService.editProduct(id, newProductDTO);
+    productService.editProduct(id, editProductDTO);
 
     return new ResponseEntity(new SuccessMessage("Successfully changed"), HttpStatus.CREATED);
   }
