@@ -16,7 +16,7 @@ import java.util.Map;
 @ControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
-@Override
+  @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(
           MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 

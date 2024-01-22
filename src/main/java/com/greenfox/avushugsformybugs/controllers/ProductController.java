@@ -19,7 +19,7 @@ public class ProductController {
     this.productService = productService;
   }
 
-  @PostMapping("admin/product")
+  @PostMapping("/admin/product")
   public ResponseEntity postNewProduct(@Valid @RequestBody NewProductDTO newProductDTO) {
 
     productService.convertDtoToProduct(newProductDTO);
