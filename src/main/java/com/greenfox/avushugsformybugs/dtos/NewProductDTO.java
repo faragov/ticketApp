@@ -1,22 +1,29 @@
 package com.greenfox.avushugsformybugs.dtos;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class NewProductDTO {
 
-  @NotEmpty
+  @NotEmpty(message = "Name can not be empty")
   private String name;
 
-  @NotEmpty
-  private int price;
+  @NotNull(message = "Price has to be between 100 and 50000")
+  @Min(100)
+  @Max(50000)
+  private Integer price;
 
-  @NotEmpty
-  private int duration;
+  @NotNull(message = "Duration has to be between 1 and 730")
+  @Min(1)
+  @Max(730)
+  private Integer duration;
 
-  @NotEmpty
+  @NotEmpty(message = "Description can not be empty")
   private String description;
 
-  @NotEmpty
+  @NotEmpty(message = "Type can not be empty")
   private String type;
 
   public NewProductDTO(String name, int price, int duration, String description, String type) {
