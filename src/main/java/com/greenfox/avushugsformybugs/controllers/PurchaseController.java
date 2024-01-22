@@ -1,19 +1,20 @@
 package com.greenfox.avushugsformybugs.controllers;
 
+import com.greenfox.avushugsformybugs.dtos.NewPurchase;
 import com.greenfox.avushugsformybugs.models.entities.Product;
 import com.greenfox.avushugsformybugs.models.entities.Purchase;
-import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
 import com.greenfox.avushugsformybugs.services.ProductService;
 import com.greenfox.avushugsformybugs.services.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,39 +28,40 @@ public class PurchaseController {
   private PurchaseService purchaseService;
 
   @PostMapping
-  public ResponseEntity<String> createPurchase(@AuthenticationPrincipal User userDetails, @RequestBody List<Long> productIds) {
+  public ResponseEntity<String> createPurchase(@RequestBody NewPurchase newPurchase) {
+
+    String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
 
-    Long userId = getUserIdFromUserDetails(userDetails);
+    if (!isValidPurchaseRequest(newPurchase)) {
+      return ResponseEntity.badRequest().body("Invalid purchase request.");
+    }
 
+    Product product = productService.findById(newPurchase.getProductID()).orElse(null);
 
-    if (userId == null) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid user details");
+    if (product == null) {
+      return ResponseEntity.badRequest().body("Invalid product ID.");
     }
 
 
-    Purchase purchase = new Purchase();
-    purchase.setStatus(PurchaseStatus.PENDING);
-
-
-    List<Product> products = productService.getProductsByIds(productIds);
-
-
-    if (products.size() != productIds.size()) {
-      return ResponseEntity.badRequest().body("Invalid product id(s)");
+    List<Purchase> purchases = new ArrayList<>();
+    for (int i = 0; i < newPurchase.getAmount(); i++) {
+      Purchase purchase = new Purchase();
+      purchase.setId(Long.valueOf(userId));
+      purchase.setProduct(product);
+      PurchaseStatus.valueOf("PENDING");
+      purchases.add(purchase);
     }
 
+    purchaseService.saveAll(purchases);
 
-    purchase.setUser(new User(userId));
-    purchase.setProduct(products);
+    return ResponseEntity.ok("Purchase successful.");
+  }
 
-
-    Purchase savedPurchase = purchaseService.savePurchase(purchase);
-
-    if (savedPurchase != null) {
-      return ResponseEntity.status(HttpStatus.CREATED).body("Purchase created successfully");
-    } else {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create purchase");
-    }
+  private boolean isValidPurchaseRequest(NewPurchase newPurchase) {
+      if (newPurchase != null && newPurchase.getAmount() > 0 && newPurchase.getAmount() <= 10) {
+          newPurchase.getProductID();
+      }
+      return false;
   }
 }
