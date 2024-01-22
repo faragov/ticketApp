@@ -2,6 +2,7 @@ package com.greenfox.avushugsformybugs.controllers;
 
 import com.greenfox.avushugsformybugs.dtos.NewProductDTO;
 import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
+import com.greenfox.avushugsformybugs.models.entities.Product;
 import com.greenfox.avushugsformybugs.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ public class ProductController {
   @PostMapping("/admin/product")
   public ResponseEntity postNewProduct(@Valid @RequestBody NewProductDTO newProductDTO) {
 
-    productService.convertDtoToProduct(newProductDTO);
+    Product newProduct = productService.convertDtoToProduct(newProductDTO);
+    productService.saveNewProduct(newProduct);
 
     return new ResponseEntity(new SuccessMessage("Successfully posted"), HttpStatus.CREATED);
   }

@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public void convertDtoToProduct(NewProductDTO newProductDTO) {
+  public Product convertDtoToProduct(NewProductDTO newProductDTO) {
 
     Product product = new Product();
     product.setName(newProductDTO.getName());
@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     product.setPrice(newProductDTO.getPrice());
     product.setDescription(newProductDTO.getDescription());
 
-    productRepository.save(product);
+    return product;
   }
 
   @Override
@@ -52,5 +52,10 @@ public class ProductServiceImpl implements ProductService {
 
       productRepository.save(foundProduct.get());
     }
+  }
+
+  @Override
+  public void saveNewProduct(Product newProduct) {
+    productRepository.save(newProduct);
   }
 }
