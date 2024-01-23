@@ -29,27 +29,59 @@ public class Product {
   @JoinColumn(name = "product_id")
   private Set<Purchase> purchases;
 
-  public Long getId(){
-    return this.Id;
+  public Long getId() {
+    return Id;
   }
 
-  public String getName(){
-    return this.name;
+  public void setId(Long id) {
+    Id = id;
   }
 
-  public int getPrice(){
-    return this.price;
+  public String getName() {
+    return name;
   }
 
-  public int getDuration(){
-    return this.duration;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public String getDescription(){
-    return this.description;
+  public int getPrice() {
+    return price;
   }
 
-  public String getType(){
-    return this.type;
+  public void setPrice(int price) {
+    this.price = price;
+  }
+
+  public int getDuration() {
+    return duration;
+  }
+
+  public void setDuration(int duration) {
+    this.duration = duration;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public Set<Purchase> getPurchases() {
+    return purchases;
+  }
+
+  public void setPurchases(Set<Purchase> purchases) {
+    this.purchases = purchases;
   }
 }
