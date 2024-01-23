@@ -7,7 +7,6 @@ import com.greenfox.avushugsformybugs.dtos.GetProductListDTO;
 import com.greenfox.avushugsformybugs.models.entities.Product;
 import com.greenfox.avushugsformybugs.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -73,6 +72,7 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public void saveNewProduct(Product newProduct) {
     productRepository.save(newProduct);
+  }
     
   public List<Product> getAllProducts(){
     return productRepository.findAll();
