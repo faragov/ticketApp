@@ -28,7 +28,6 @@ public class Purchase {
   @JoinColumn(name = "user_id")
   private User user;
 
-
   public Long getId() {
     return Id;
   }
@@ -69,6 +68,7 @@ public class Purchase {
     this.product = product;
   }
 
+
   public User getUser() {
     return user;
   }
@@ -76,4 +76,5 @@ public class Purchase {
   public void setUser(User user) {
     this.user = user;
   }
+
 }
