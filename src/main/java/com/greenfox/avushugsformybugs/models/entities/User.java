@@ -95,4 +95,12 @@ public class User implements UserDetails {
   public void setPurchases(Set<Purchase> purchases) {
     this.purchases = purchases;
   }
+
+  public Long getId() {
+    return Id;
+  }
+
+  public void setId(Long id) {
+    Id = id;
+  }
 }

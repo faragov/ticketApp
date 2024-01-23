@@ -1,21 +1,17 @@
 package com.greenfox.avushugsformybugs.controllers;
 
 import com.greenfox.avushugsformybugs.dtos.NewPurchase;
-import com.greenfox.avushugsformybugs.models.entities.Product;
-import com.greenfox.avushugsformybugs.models.entities.Purchase;
-import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
+import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.services.ProductService;
 import com.greenfox.avushugsformybugs.services.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/purchase")
@@ -28,32 +24,24 @@ public class PurchaseController {
   private PurchaseService purchaseService;
 
   @PostMapping
-  public ResponseEntity<String> createPurchase(@RequestBody NewPurchase newPurchase) {
+  public ResponseEntity<String> createPurchase(@RequestBody NewPurchase newPurchase, @AuthenticationPrincipal User user) {
 
-    String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-
+    Long userId = user.getId();
 
     if (!isValidPurchaseRequest(newPurchase)) {
       return ResponseEntity.badRequest().body("Invalid purchase request.");
     }
 
-    Product product = productService.findById(newPurchase.getProductID()).orElse(null);
 
-    if (product == null) {
+    try{
+      productService.findById(newPurchase.getProductID());
+    }
+    catch (IllegalArgumentException e){
       return ResponseEntity.badRequest().body("Invalid product ID.");
     }
 
+    purchaseService.createPurchase(userId, newPurchase.getAmount());
 
-    List<Purchase> purchases = new ArrayList<>();
-    for (int i = 0; i < newPurchase.getAmount(); i++) {
-      Purchase purchase = new Purchase();
-      purchase.setId(Long.valueOf(userId));
-      purchase.setProduct(product);
-      PurchaseStatus.valueOf("PENDING");
-      purchases.add(purchase);
-    }
-
-    purchaseService.saveAll(purchases);
 
     return ResponseEntity.ok("Purchase successful.");
   }

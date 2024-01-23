@@ -1,10 +1,12 @@
 package com.greenfox.avushugsformybugs.services;
 
 import com.greenfox.avushugsformybugs.models.entities.Purchase;
+import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
 import com.greenfox.avushugsformybugs.repositories.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,4 +23,24 @@ public class PurchaseServiceImpl implements PurchaseService {
   public void saveAll(List<Purchase> purchases) {
     purchaseRepository.saveAll(purchases);
   }
+
+  @Override
+  public List<Purchase> createPurchase(Long userId, Long numberOfNewPurchase) {
+    List<Purchase> purchases = new ArrayList<>();
+    for (int i = 0; i < numberOfNewPurchase; i++) {
+      Purchase purchase = new Purchase();
+      purchase.setId(userId);
+      purchase.setUser(purchase.getUser());
+      purchase.setProduct(purchase.getProduct());
+      purchase.setStatus(PurchaseStatus.PENDING);
+      purchases.add(purchase);
+    }
+
+    purchaseRepository.saveAll(purchases);
+    return purchases;
+  }
+
+
+
+
 }

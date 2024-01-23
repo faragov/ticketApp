@@ -1,9 +1,12 @@
 package com.greenfox.avushugsformybugs.dtos;
 
+
+
 public class NewPurchase {
 
 
     private Long productID;
+
 
     private Long amount;
 
