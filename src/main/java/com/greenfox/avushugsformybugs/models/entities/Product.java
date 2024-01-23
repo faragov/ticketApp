@@ -61,6 +61,9 @@ public class Product {
     this.duration = duration;
   }
 
+  public void setDescription(String description) {
+    this.description = description;
+
   public String getType() {
     return type;
   }
