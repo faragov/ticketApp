@@ -27,4 +27,44 @@ public class Purchase {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
+
+  public Long getId() {
+    return Id;
+  }
+
+  public void setId(Long id) {
+    Id = id;
+  }
+
+  public PurchaseStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(PurchaseStatus status) {
+    this.status = status;
+  }
+
+  public Date getOrderDate() {
+    return orderDate;
+  }
+
+  public void setOrderDate(Date orderDate) {
+    this.orderDate = orderDate;
+  }
+
+  public Date getActivateDate() {
+    return activateDate;
+  }
+
+  public void setActivateDate(Date activateDate) {
+    this.activateDate = activateDate;
+  }
+
+  public Product getProduct() {
+    return product;
+  }
+
+  public void setProduct(Product product) {
+    this.product = product;
+  }
 }

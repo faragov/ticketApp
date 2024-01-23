@@ -1,15 +1,8 @@
-package com.greenfox.avushugsformybugs.models.entities;
+package com.greenfox.avushugsformybugs.dtos;
 
-import jakarta.persistence.*;
+import com.greenfox.avushugsformybugs.models.entities.Product;
 
-import java.util.Set;
-
-@Entity
-@Table(name = "products")
-public class Product {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class GetProductDTO {
   private Long Id;
 
   private String name;
@@ -22,12 +15,19 @@ public class Product {
 
   private String type;
 
-  @OneToMany(
-          fetch = FetchType.LAZY,
-          cascade = CascadeType.ALL
-  )
-  @JoinColumn(name = "product_id")
-  private Set<Purchase> purchases;
+  public GetProductDTO(Product product){
+    this.Id = product.getId();
+
+    this.name = product.getName();
+
+    this.price = product.getPrice();
+
+    this.duration = product.getDuration();
+
+    this.description = product.getDescription();
+
+    this.type = product.getType();
+  }
 
   public Long getId() {
     return Id;
@@ -61,8 +61,13 @@ public class Product {
     this.duration = duration;
   }
 
+  public String getDescription() {
+    return description;
+  }
+
   public void setDescription(String description) {
     this.description = description;
+  }
 
   public String getType() {
     return type;
@@ -70,13 +75,5 @@ public class Product {
 
   public void setType(String type) {
     this.type = type;
-  }
-
-  public Set<Purchase> getPurchases() {
-    return purchases;
-  }
-
-  public void setPurchases(Set<Purchase> purchases) {
-    this.purchases = purchases;
   }
 }

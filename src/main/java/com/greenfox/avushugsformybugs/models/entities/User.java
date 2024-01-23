@@ -100,4 +100,11 @@ public class User implements UserDetails {
   public void setPurchases(Set<Purchase> purchases) {
     this.purchases = purchases;
   }
+
+  public User(Long userId) {
+  }
+
+  public Long getId() {
+    return Id;
+  }
 }

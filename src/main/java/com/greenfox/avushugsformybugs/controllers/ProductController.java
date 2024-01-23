@@ -3,6 +3,8 @@ package com.greenfox.avushugsformybugs.controllers;
 import com.greenfox.avushugsformybugs.dtos.EditProductDTO;
 import com.greenfox.avushugsformybugs.dtos.NewProductDTO;
 import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
+import com.greenfox.avushugsformybugs.dtos.GetProductDTO;
+import com.greenfox.avushugsformybugs.dtos.GetProductListDTO;
 import com.greenfox.avushugsformybugs.models.entities.Product;
 import com.greenfox.avushugsformybugs.services.ProductService;
 import jakarta.validation.Valid;
@@ -10,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class ProductController {
@@ -44,5 +49,10 @@ public class ProductController {
     productService.editProduct(id, editProductDTO);
 
     return new ResponseEntity(new SuccessMessage("Successfully changed"), HttpStatus.CREATED);
+
+  @GetMapping("/products")
+  public ResponseEntity getProducts(){
+    GetProductListDTO productListDTO = productService.listAllProducts();
+    return ResponseEntity.status(200).body(productListDTO);
   }
 }
