@@ -1,5 +1,6 @@
 package com.greenfox.avushugsformybugs.services;
 
+import com.greenfox.avushugsformybugs.dtos.EditPurchaseDTO;
 import com.greenfox.avushugsformybugs.dtos.PurchaseDto;
 import com.greenfox.avushugsformybugs.models.entities.Purchase;
 import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
@@ -53,5 +54,16 @@ public class PurchaseServiceImpl implements PurchaseService {
       dtoList.add(purchaseDto);
     }
     return dtoList;
+  }
+
+  public void editPurchases(Long userId, EditPurchaseDTO editPurchase){
+    PurchaseStatus status = editPurchase.getStatus();
+    Purchase purchase;
+    for(int i=0;i<editPurchase.getPurchaseIds().size();i++){
+      purchase = purchaseRepository.findPurchaseByIdAndUserId(userId,editPurchase.getPurchaseIds().get(i)).get(0);
+      if(purchase!=null){
+        purchaseRepository.findPurchaseByIdAndUserId(userId,editPurchase.getPurchaseIds().get(i)).get(0).setStatus(status);
+      }
+    }
   }
 }

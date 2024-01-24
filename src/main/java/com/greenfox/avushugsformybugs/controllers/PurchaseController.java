@@ -1,5 +1,6 @@
 package com.greenfox.avushugsformybugs.controllers;
 
+import com.greenfox.avushugsformybugs.dtos.EditPurchaseDTO;
 import com.greenfox.avushugsformybugs.dtos.ErrorMessage;
 import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
@@ -7,9 +8,7 @@ import com.greenfox.avushugsformybugs.services.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PurchaseController {
@@ -36,5 +35,17 @@ public class PurchaseController {
       ErrorMessage errorMessage = new ErrorMessage("Unknown status");
       return ResponseEntity.status(400).body(errorMessage);
     }
+  }
+
+  @PutMapping("/purchases")
+  public ResponseEntity modifyPurchases(@AuthenticationPrincipal User loginedUser, @RequestBody EditPurchaseDTO editPurchase){
+    try{
+      purchaseService.checkStatus(editPurchase.getStatus());
+    } catch(IllegalArgumentException e){
+      ErrorMessage errorMessage = new ErrorMessage("Unknown status");
+      return ResponseEntity.status(400).body(errorMessage);
+    }
+    purchaseService.editPurchases(loginedUser.getId(),editPurchase);
+    return ResponseEntity.status(200).body("success");
   }
 }

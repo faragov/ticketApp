@@ -1,5 +1,6 @@
 package com.greenfox.avushugsformybugs.services;
 
+import com.greenfox.avushugsformybugs.dtos.EditPurchaseDTO;
 import com.greenfox.avushugsformybugs.dtos.PurchaseDto;
 import com.greenfox.avushugsformybugs.models.entities.Purchase;
 import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
@@ -14,4 +15,6 @@ public interface PurchaseService {
   void checkStatus(PurchaseStatus status);
 
   List<PurchaseDto> getPurchaseDtos(Long userId, PurchaseStatus status);
+
+  void editPurchases(Long userId, EditPurchaseDTO editPurchase);
 }
