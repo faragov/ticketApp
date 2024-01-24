@@ -41,11 +41,10 @@ public class PurchaseController {
   public ResponseEntity modifyPurchases(@AuthenticationPrincipal User loginedUser, @RequestBody EditPurchaseDTO editPurchase){
     try{
       purchaseService.checkStatus(editPurchase.getStatus());
-    } catch(IllegalArgumentException e){
-      ErrorMessage errorMessage = new ErrorMessage("Unknown status");
-      return ResponseEntity.status(400).body(errorMessage);
+    } catch(Exception e){
+      return ResponseEntity.status(401).body("Bad ticket status");
     }
     purchaseService.editPurchases(loginedUser.getId(),editPurchase);
-    return ResponseEntity.status(200).body("success");
+    return ResponseEntity.status(200).body("Success");
   }
 }
