@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -37,10 +38,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 
   @Override
   public List<PurchaseDto> getPurchaseDtos(Long userId, PurchaseStatus status) {
-    Set<Purchase> purchaseList = findPurchaseByUserIdAndStatus(userId, status);
-    Purchase purchase = new Purchase();
+    Set<Purchase> purchaseSet = findPurchaseByUserIdAndStatus(userId, status);
     List<PurchaseDto> dtoList = new ArrayList<>();
-    for (int i = 0; i < purchaseList.size(); i++) {
+    for(Purchase purchase: purchaseSet) {
       PurchaseDto purchaseDto = new PurchaseDto();
       purchaseDto.setId(purchase.getId());
       purchaseDto.setStatus(purchase.getStatus());
@@ -58,11 +58,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 
   public void editPurchases(Long userId, EditPurchaseDTO editPurchase){
     PurchaseStatus status = editPurchase.getStatus();
-    Purchase purchase;
+    Optional<Purchase> oPurchase;
     for(int i=0;i<editPurchase.getPurchaseIds().size();i++){
-      purchase = purchaseRepository.findPurchaseByIdAndUserId(userId,editPurchase.getPurchaseIds().get(i)).get(0);
-      if(purchase!=null){
-        purchaseRepository.findPurchaseByIdAndUserId(userId,editPurchase.getPurchaseIds().get(i)).get(0).setStatus(status);
+      oPurchase = purchaseRepository.findPurchaseByIdAndUserId(editPurchase.getPurchaseIds().get(i), userId);
+      if(oPurchase.isPresent()){
+        Purchase purchase = oPurchase.get();
+        purchase.setStatus(status);
+        purchaseRepository.save(purchase);
       }
     }
   }

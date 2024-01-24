@@ -37,7 +37,7 @@ public class PurchaseController {
     }
   }
 
-  @PutMapping("/purchases")
+  @PutMapping("/api/purchases")
   public ResponseEntity modifyPurchases(@AuthenticationPrincipal User loginedUser, @RequestBody EditPurchaseDTO editPurchase){
     try{
       purchaseService.checkStatus(editPurchase.getStatus());
