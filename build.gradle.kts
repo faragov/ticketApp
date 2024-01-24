@@ -19,9 +19,6 @@ repositories {
 dependencies {
 
     implementation ("io.github.cdimascio:dotenv-java:3.0.0")
-
-    implementation("io.github.cdimascio:dotenv-java:3.0.0")
-
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
@@ -36,7 +33,7 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 
-    implementation("org.hibernate.validator:hibernate-validator:6.2.0.Final")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
 }
 checkstyle {
     toolVersion = "8.40"

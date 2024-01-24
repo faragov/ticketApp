@@ -1,33 +1,30 @@
 package com.greenfox.avushugsformybugs.services;
 
 
+import com.greenfox.avushugsformybugs.dtos.NewPurchase;
+import com.greenfox.avushugsformybugs.models.entities.Product;
 import com.greenfox.avushugsformybugs.models.entities.Purchase;
-<<<<<<< HEAD
-=======
 import com.greenfox.avushugsformybugs.dtos.PurchaseDto;
->>>>>>> development
+import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
+import com.greenfox.avushugsformybugs.repositories.ProductRepository;
 import com.greenfox.avushugsformybugs.repositories.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-<<<<<<< HEAD
 
-import java.util.ArrayList;
-=======
->>>>>>> development
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
 
   private final PurchaseRepository purchaseRepository;
+  private final ProductRepository productRepository;
 
   @Autowired
-  public PurchaseServiceImpl(PurchaseRepository purchaseRepository) {
+  public PurchaseServiceImpl(PurchaseRepository purchaseRepository, ProductRepository productRepository) {
     this.purchaseRepository = purchaseRepository;
+    this.productRepository = productRepository;
   }
 
 
@@ -45,10 +42,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 
   @Override
   public List<PurchaseDto> getPurchaseDtos(Long userId, PurchaseStatus status) {
-    Set<Purchase> purchaseList = findPurchaseByUserIdAndStatus(userId, status);
-    Purchase purchase = new Purchase();
+    Set<Purchase> purchaseSet = findPurchaseByUserIdAndStatus(userId, status);
     List<PurchaseDto> dtoList = new ArrayList<>();
-    for (int i = 0; i < purchaseList.size(); i++) {
+    for (Purchase purchase : purchaseSet) {
       PurchaseDto purchaseDto = new PurchaseDto();
       purchaseDto.setId(purchase.getId());
       purchaseDto.setStatus(purchase.getStatus());
@@ -71,22 +67,32 @@ public class PurchaseServiceImpl implements PurchaseService {
   }
 
   @Override
-  public List<Purchase> createPurchase(Long userId, Long numberOfNewPurchase) {
+  public void createPurchase(User user, NewPurchase newPurchase) throws Exception {
+    Optional<Product> oProduct = productRepository.findById(newPurchase.getProductID());
+
+    if (oProduct.isEmpty()) {
+      throw new Exception("Wrong Product id");
+    }
+
+    Product product = oProduct.get();
+
+    purchaseRepository.saveAll(getMultiplePurchase(user, product, newPurchase.getAmount()));
+  }
+
+  public List<Purchase> getMultiplePurchase(User user, Product product, long amount) {
     List<Purchase> purchases = new ArrayList<>();
-    for (int i = 0; i < numberOfNewPurchase; i++) {
+
+    for (int i = 0; i < amount; i++) {
       Purchase purchase = new Purchase();
-      purchase.setId(userId);
-      purchase.setUser(purchase.getUser());
-      purchase.setProduct(purchase.getProduct());
+      purchase.setUser(user);
+      purchase.setProduct(product);
       purchase.setStatus(PurchaseStatus.PENDING);
+      purchase.setOrderDate(new Date());
       purchases.add(purchase);
     }
 
-    purchaseRepository.saveAll(purchases);
     return purchases;
   }
-
-
 
 
 }

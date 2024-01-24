@@ -1,7 +1,9 @@
 package com.greenfox.avushugsformybugs.services;
 
+import com.greenfox.avushugsformybugs.dtos.NewPurchase;
 import com.greenfox.avushugsformybugs.dtos.PurchaseDto;
 import com.greenfox.avushugsformybugs.models.entities.Purchase;
+import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +15,7 @@ public interface PurchaseService {
 
     void saveAll(List<Purchase> purchases);
 
-    List<Purchase> createPurchase(Long userId, Long numberOfNewPurchase);
+    void createPurchase(User user, NewPurchase newPurchase) throws Exception;
 
     void checkStatus(PurchaseStatus status);
 
