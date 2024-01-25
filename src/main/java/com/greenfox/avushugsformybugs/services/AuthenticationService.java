@@ -14,6 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuthenticationService {
   private final UserRepository repository;
@@ -56,5 +58,15 @@ public class AuthenticationService {
     AuthenticationResponse currentResponse = new AuthenticationResponse();
     currentResponse.setToken(jwtToken);
     return currentResponse;
+  }
+
+  public boolean checkIfEmailIsNotTaken(RegisterRequest request) {
+    String email = request.getEmail();
+    Optional<User> user = repository.findByEmail(email);
+    if (user.isPresent()) {
+      return false;
+    }else {
+      return true;
+    }
   }
 }
