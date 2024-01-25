@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -86,5 +87,10 @@ public class ProductServiceImpl implements ProductService {
     }
     GetProductListDTO productListDTO = new GetProductListDTO(productDTOList);
     return productListDTO;
+  }
+
+  @Override
+  public Optional<Product> findById(long productID) {
+    return productRepository.findById(productID);
   }
 }

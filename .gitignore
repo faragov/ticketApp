@@ -35,4 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/
+<<<<<<< HEAD
+
+### Local Configuration ###
 .env
+=======
+.env
+>>>>>>> 9ccf65c1ae947b57c4a6b3b21e19817e2b442c08

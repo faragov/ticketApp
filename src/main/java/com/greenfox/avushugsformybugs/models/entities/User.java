@@ -101,9 +101,6 @@ public class User implements UserDetails {
     this.purchases = purchases;
   }
 
-  public User(Long userId) {
-  }
-
   public Long getId() {
     return Id;
   }

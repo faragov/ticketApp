@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
-  Set<Purchase> findPurchaseByUserIdAndStatus(Long userId, PurchaseStatus status);
 
+  Set<Purchase> findPurchaseByUserIdAndStatus(Long userId, PurchaseStatus status);
   Optional<Purchase> findPurchaseByIdAndUserId(Long id, Long userId);
 }
