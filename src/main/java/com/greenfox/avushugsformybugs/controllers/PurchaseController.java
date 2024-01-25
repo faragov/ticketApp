@@ -2,6 +2,7 @@ package com.greenfox.avushugsformybugs.controllers;
 
 import com.greenfox.avushugsformybugs.dtos.EditPurchaseDTO;
 import com.greenfox.avushugsformybugs.dtos.ErrorMessage;
+import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
 import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
 import com.greenfox.avushugsformybugs.services.PurchaseService;
@@ -42,9 +43,11 @@ public class PurchaseController {
     try{
       purchaseService.checkStatus(editPurchase.getStatus());
     } catch(Exception e){
-      return ResponseEntity.status(401).body("Bad ticket status");
+      ErrorMessage errorMessage = new ErrorMessage("Wrong status");
+      return ResponseEntity.status(401).body(errorMessage);
     }
     purchaseService.editPurchases(loginedUser.getId(),editPurchase);
-    return ResponseEntity.status(200).body("Success");
+    SuccessMessage successMessage = new SuccessMessage("Success");
+    return ResponseEntity.status(200).body(successMessage);
   }
 }
