@@ -49,6 +49,7 @@ public class ProductController {
     productService.editProduct(id, editProductDTO);
 
     return new ResponseEntity(new SuccessMessage("Successfully changed"), HttpStatus.CREATED);
+  }
 
   @GetMapping("/products")
   public ResponseEntity getProducts(){
