@@ -32,7 +32,7 @@ public class AuthenticationController {
     if (service.checkIfEmailIsNotTaken(request)) {
       return ResponseEntity.ok(service.register(request));
     }else {
-      return ResponseEntity.ok(new ErrorMessage("Email is taken"));
+      return ResponseEntity.badRequest().body(new ErrorMessage("Email is taken"));
     }
   }
 
