@@ -1,10 +1,12 @@
 package com.greenfox.avushugsformybugs.controllers;
 
+import com.greenfox.avushugsformybugs.dtos.ErrorMessage;
 import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
 import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationRequest;
 import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationResponse;
 import com.greenfox.avushugsformybugs.services.AuthenticationService;
 import com.greenfox.avushugsformybugs.dtos.auth.RegisterRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,10 +26,14 @@ public class AuthenticationController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<SuccessMessage> register(
-          @RequestBody RegisterRequest request
+  public ResponseEntity register(
+          @Valid @RequestBody RegisterRequest request
   ) {
-    return ResponseEntity.ok(service.register(request));
+    if (service.checkIfEmailIsNotTaken(request)) {
+      return ResponseEntity.ok(service.register(request));
+    }else {
+      return ResponseEntity.badRequest().body(new ErrorMessage("Email is taken"));
+    }
   }
 
   @PostMapping("/login")
