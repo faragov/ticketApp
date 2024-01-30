@@ -3,6 +3,7 @@ package com.greenfox.avushugsformybugs.controllers;
 import com.greenfox.avushugsformybugs.dtos.EditNewsDTO;
 import com.greenfox.avushugsformybugs.dtos.NewNewsDTO;
 import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
+import com.greenfox.avushugsformybugs.dtos.TopNewsDTO;
 import com.greenfox.avushugsformybugs.models.entities.News;
 import com.greenfox.avushugsformybugs.services.NewsService;
 import jakarta.validation.Valid;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class NewsController {
@@ -44,5 +47,13 @@ public class NewsController {
     newsService.editNews(id, editNewsDTO);
 
     return new ResponseEntity(new SuccessMessage("Successfully changed"), HttpStatus.CREATED);
+  }
+
+  @GetMapping("/topnews")
+  public ResponseEntity getTopThreeNews() {
+
+    List<News> topNews = newsService.findeTopThree();
+    List<TopNewsDTO> responseList= newsService.convertTopThree(topNews);
+    return ResponseEntity.status(200).body(responseList);
   }
 }

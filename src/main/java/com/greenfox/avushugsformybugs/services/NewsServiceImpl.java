@@ -2,12 +2,15 @@ package com.greenfox.avushugsformybugs.services;
 
 import com.greenfox.avushugsformybugs.dtos.EditNewsDTO;
 import com.greenfox.avushugsformybugs.dtos.NewNewsDTO;
+import com.greenfox.avushugsformybugs.dtos.TopNewsDTO;
 import com.greenfox.avushugsformybugs.models.entities.News;
 import com.greenfox.avushugsformybugs.repositories.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -67,5 +70,33 @@ public class NewsServiceImpl implements NewsService {
       newsRepository.save(myNews);
     }
 
+  }
+
+  @Override
+  public List<News> findeTopThree() {
+    List<News> news= newsRepository.findTopThreeNews();
+    return news;
+  }
+
+  @Override
+  public TopNewsDTO convertNewsToDTO(News news) {
+    TopNewsDTO myDto = new TopNewsDTO();
+    myDto.setAuthor(news.getAuthor());
+    myDto.setContent(news.getContent());
+    myDto.setTitle(news.getTitle());
+    myDto.setCreatedDate(news.getCreatedDate());
+
+    return myDto;
+  }
+
+  @Override
+  public List<TopNewsDTO> convertTopThree(List<News> topNews) {
+
+    List<TopNewsDTO> topList = new ArrayList<>();
+    for (int i = 0; i < topNews.size(); i++) {
+      TopNewsDTO top = convertNewsToDTO(topNews.get(i));
+      topList.add(top);
+    }
+    return topList;
   }
 }
