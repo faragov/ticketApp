@@ -1,5 +1,6 @@
 package com.greenfox.avushugsformybugs.controllers;
 
+import com.greenfox.avushugsformybugs.dtos.EditNewsDTO;
 import com.greenfox.avushugsformybugs.dtos.NewNewsDTO;
 import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
 import com.greenfox.avushugsformybugs.models.entities.News;
@@ -35,5 +36,13 @@ public class NewsController {
     newsService.deleteNews(id);
 
     return new ResponseEntity(new SuccessMessage("Successfully deleted"), HttpStatus.OK);
+  }
+
+  @PutMapping("/admin/news/{id}")
+  public ResponseEntity editNews(@PathVariable Long id, @RequestBody EditNewsDTO editNewsDTO) {
+
+    newsService.editNews(id, editNewsDTO);
+
+    return new ResponseEntity(new SuccessMessage("Successfully changed"), HttpStatus.CREATED);
   }
 }

@@ -1,5 +1,6 @@
 package com.greenfox.avushugsformybugs.services;
 
+import com.greenfox.avushugsformybugs.dtos.EditNewsDTO;
 import com.greenfox.avushugsformybugs.dtos.NewNewsDTO;
 import com.greenfox.avushugsformybugs.models.entities.News;
 import com.greenfox.avushugsformybugs.repositories.NewsRepository;
@@ -46,5 +47,25 @@ public class NewsServiceImpl implements NewsService {
       News foundNews = news.get();
       newsRepository.delete(foundNews);
     }
+  }
+
+  @Override
+  public void editNews(Long id, EditNewsDTO editNewsDTO) {
+
+    Optional<News> foundNews = newsRepository.findById(id);
+    if (foundNews.isPresent()) {
+      News myNews = foundNews.get();
+      if (editNewsDTO.getAuthor() != null) {
+        myNews.setAuthor(editNewsDTO.getAuthor());
+      }
+      if (editNewsDTO.getTitle() != null) {
+        myNews.setTitle(editNewsDTO.getTitle());
+      }
+      if (editNewsDTO.getContent() != null) {
+        myNews.setContent(editNewsDTO.getContent());
+      }
+      newsRepository.save(myNews);
+    }
+
   }
 }
