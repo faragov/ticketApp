@@ -44,6 +44,8 @@ public class SecurityConfiguration {
                             .permitAll()
                             .requestMatchers("/admin/**")
                             .hasAuthority("ADMIN")
+                            .requestMatchers("/topnews")
+                            .permitAll()
                             .requestMatchers("/api/purchases")
                             .authenticated()
                             .anyRequest()
