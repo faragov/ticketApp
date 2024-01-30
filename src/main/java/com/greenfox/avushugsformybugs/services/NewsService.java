@@ -7,4 +7,6 @@ public interface NewsService {
   News convertDtoToNews(NewNewsDTO newNewsDTO);
 
   void saveNewNews(News news);
+
+  void deleteNews(Long id);
 }

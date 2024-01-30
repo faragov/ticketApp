@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -35,5 +36,15 @@ public class NewsServiceImpl implements NewsService {
   public void saveNewNews(News news) {
 
     newsRepository.save(news);
+  }
+
+  @Override
+  public void deleteNews(Long id) {
+
+    Optional<News> news = newsRepository.findById(id);
+    if (news.isPresent()) {
+      News foundNews = news.get();
+      newsRepository.delete(foundNews);
+    }
   }
 }
