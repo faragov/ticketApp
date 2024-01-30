@@ -67,18 +67,19 @@ public class PurchaseServiceImpl implements PurchaseService {
 
   }
 
-  public void editPurchases(Long userId, EditPurchaseDTO editPurchase){
+  public void editPurchases(Long userId, EditPurchaseDTO editPurchase) {
     PurchaseStatus status = editPurchase.getStatus();
     Optional<Purchase> oPurchase;
-    for(int i=0;i<editPurchase.getPurchaseIds().size();i++){
+    for (int i = 0; i < editPurchase.getPurchaseIds().size(); i++) {
       oPurchase = purchaseRepository.findPurchaseByIdAndUserId(editPurchase.getPurchaseIds().get(i), userId);
-      if(oPurchase.isPresent()){
+      if (oPurchase.isPresent()) {
         Purchase purchase = oPurchase.get();
         purchase.setStatus(status);
         purchaseRepository.save(purchase);
       }
     }
   }
+
   @Override
   public void saveAll(List<Purchase> purchases) {
     purchaseRepository.saveAll(purchases);

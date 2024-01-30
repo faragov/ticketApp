@@ -6,15 +6,15 @@ public class GetProductListDTO {
 
   private List<GetProductDTO> products;
 
-  public GetProductListDTO(List<GetProductDTO> productList){
+  public GetProductListDTO(List<GetProductDTO> productList) {
     this.products = productList;
   }
 
-  public List<GetProductDTO> getProducts(){
+  public List<GetProductDTO> getProducts() {
     return this.products;
   }
 
-  public void setProducts(List<GetProductDTO> products){
+  public void setProducts(List<GetProductDTO> products) {
     this.products = products;
   }
 }

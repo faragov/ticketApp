@@ -15,7 +15,7 @@ public class GetProductDTO {
 
   private String type;
 
-  public GetProductDTO(Product product){
+  public GetProductDTO(Product product) {
     this.Id = product.getId();
 
     this.name = product.getName();

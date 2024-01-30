@@ -10,7 +10,7 @@ public class EditPurchaseDTO {
   List<Long> purchaseIds;
 
   public EditPurchaseDTO(PurchaseStatus status, List<Long> purchaseIds) {
-    this.status=status;
+    this.status = status;
     this.purchaseIds = purchaseIds;
   }
 

@@ -74,7 +74,7 @@ public class NewsServiceImpl implements NewsService {
 
   @Override
   public List<News> findeTopThree() {
-    List<News> news= newsRepository.findTopThreeNews();
+    List<News> news = newsRepository.findTopThreeNews();
     return news;
   }
 

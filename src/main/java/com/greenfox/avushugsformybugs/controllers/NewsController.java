@@ -53,7 +53,7 @@ public class NewsController {
   public ResponseEntity getTopThreeNews() {
 
     List<News> topNews = newsService.findeTopThree();
-    List<TopNewsDTO> responseList= newsService.convertTopThree(topNews);
+    List<TopNewsDTO> responseList = newsService.convertTopThree(topNews);
     return ResponseEntity.status(200).body(responseList);
   }
 }
