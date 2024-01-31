@@ -5,6 +5,7 @@ import com.greenfox.avushugsformybugs.dtos.EditPurchaseDTO;
 import com.greenfox.avushugsformybugs.dtos.ErrorMessage;
 import com.greenfox.avushugsformybugs.dtos.NewPurchase;
 import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
+import com.greenfox.avushugsformybugs.exceptions.ProductNotFoundException;
 import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
 import com.greenfox.avushugsformybugs.services.ProductService;
@@ -36,14 +37,10 @@ public class PurchaseController {
   private PurchaseService purchaseService;
 
   @PostMapping("/purchases")
-  public ResponseEntity createPurchase(@Valid @RequestBody NewPurchase newPurchase, @AuthenticationPrincipal User user) {
+  public ResponseEntity createPurchase(@Valid @RequestBody NewPurchase newPurchase, @AuthenticationPrincipal User user){
 
-    try{
-      purchaseService.createPurchase(user, newPurchase);
-      return ResponseEntity.ok(new SuccessMessage("Successful purchase"));
-    } catch (Exception e) {
-      return ResponseEntity.badRequest().body(new ErrorMessage("Invalid Product ID"));
-    }
+    purchaseService.createPurchase(user, newPurchase);
+    return ResponseEntity.ok(new SuccessMessage("Successful purchase"));
   }
 
   @GetMapping("/purchases")

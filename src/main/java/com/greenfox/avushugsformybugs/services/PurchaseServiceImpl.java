@@ -4,6 +4,7 @@ package com.greenfox.avushugsformybugs.services;
 import com.greenfox.avushugsformybugs.dtos.EditPurchaseDTO;
 import com.greenfox.avushugsformybugs.dtos.PurchaseDto;
 import com.greenfox.avushugsformybugs.dtos.NewPurchase;
+import com.greenfox.avushugsformybugs.exceptions.ProductNotFoundException;
 import com.greenfox.avushugsformybugs.models.entities.Product;
 import com.greenfox.avushugsformybugs.models.entities.Purchase;
 import com.greenfox.avushugsformybugs.dtos.PurchaseDto;
@@ -85,11 +86,11 @@ public class PurchaseServiceImpl implements PurchaseService {
   }
 
   @Override
-  public void createPurchase(User user, NewPurchase newPurchase) throws Exception {
+  public void createPurchase(User user, NewPurchase newPurchase) throws ProductNotFoundException {
     Optional<Product> oProduct = productRepository.findById(newPurchase.getProductID());
 
     if (oProduct.isEmpty()) {
-      throw new Exception("Wrong Product id");
+      throw new ProductNotFoundException("Wrong Product id");
     }
 
     Product product = oProduct.get();
