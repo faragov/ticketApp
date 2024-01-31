@@ -21,4 +21,6 @@ public interface NewsService {
   TopNewsDTO convertNewsToDTO(News news);
 
   List<TopNewsDTO> convertTopThree();
+
+  void increaseCount(Long id);
 }

@@ -4,7 +4,6 @@ import com.greenfox.avushugsformybugs.dtos.EditNewsDTO;
 import com.greenfox.avushugsformybugs.dtos.NewNewsDTO;
 import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
 import com.greenfox.avushugsformybugs.dtos.TopNewsDTO;
-import com.greenfox.avushugsformybugs.models.entities.News;
 import com.greenfox.avushugsformybugs.services.NewsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +52,13 @@ public class NewsController {
 
     List<TopNewsDTO> responseList = newsService.convertTopThree();
     return ResponseEntity.status(200).body(responseList);
+  }
+
+  @PutMapping("/news/{id}/increaseVisitorCount")
+  public ResponseEntity increaseVisitorCount(@PathVariable Long id) {
+
+    newsService.increaseCount(id);
+
+    return new ResponseEntity(new SuccessMessage("Successfully changed"), HttpStatus.CREATED);
   }
 }

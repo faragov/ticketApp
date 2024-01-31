@@ -102,4 +102,14 @@ public class NewsServiceImpl implements NewsService {
     }
     return topList;
   }
+
+  @Override
+  public void increaseCount(Long id) {
+
+    Optional<News> foundNews = newsRepository.findById(id);
+    if (foundNews.isPresent()) {
+      News myNews = foundNews.get();
+      myNews.setNumberOfClicks(myNews.getNumberOfClicks() + 1);
+    }
+  }
 }
