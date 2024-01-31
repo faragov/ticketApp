@@ -110,6 +110,7 @@ public class NewsServiceImpl implements NewsService {
     if (foundNews.isPresent()) {
       News myNews = foundNews.get();
       myNews.setNumberOfClicks(myNews.getNumberOfClicks() + 1);
+      newsRepository.save(myNews)
     }
   }
 }
