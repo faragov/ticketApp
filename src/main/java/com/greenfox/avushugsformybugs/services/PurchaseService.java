@@ -4,6 +4,7 @@ package com.greenfox.avushugsformybugs.services;
 import com.greenfox.avushugsformybugs.dtos.EditPurchaseDTO;
 import com.greenfox.avushugsformybugs.dtos.NewPurchase;
 import com.greenfox.avushugsformybugs.dtos.PurchaseDto;
+import com.greenfox.avushugsformybugs.exceptions.IllegalPurchaseStatusException;
 import com.greenfox.avushugsformybugs.exceptions.ProductNotFoundException;
 import com.greenfox.avushugsformybugs.models.entities.Purchase;
 import com.greenfox.avushugsformybugs.models.entities.User;
@@ -20,7 +21,7 @@ public interface PurchaseService {
 
     void createPurchase(User user, NewPurchase newPurchase) throws ProductNotFoundException;
 
-    void checkStatus(PurchaseStatus status);
+    void checkStatus(PurchaseStatus status) throws IllegalPurchaseStatusException;
 
   List<PurchaseDto> getPurchaseDtos(Long userId, PurchaseStatus status);
 
