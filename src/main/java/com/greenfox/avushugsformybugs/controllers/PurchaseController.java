@@ -37,8 +37,7 @@ public class PurchaseController {
   private PurchaseService purchaseService;
 
   @PostMapping("/purchases")
-  public ResponseEntity createPurchase(@Valid @RequestBody NewPurchase newPurchase, @AuthenticationPrincipal User user){
-
+  public ResponseEntity createPurchase(@Valid @RequestBody NewPurchase newPurchase, @AuthenticationPrincipal User user) throws ProductNotFoundException {
     purchaseService.createPurchase(user, newPurchase);
     return ResponseEntity.ok(new SuccessMessage("Successful purchase"));
   }
