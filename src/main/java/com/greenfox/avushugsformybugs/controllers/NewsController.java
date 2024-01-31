@@ -27,8 +27,7 @@ public class NewsController {
   @PostMapping("/admin/news")
   public ResponseEntity postNewNews(@Valid @RequestBody NewNewsDTO newNewsDTO) {
 
-    News newNews = newsService.convertDtoToNews(newNewsDTO);
-    newsService.saveNewNews(newNews);
+    newsService.saveNewNews(newNewsDTO);
 
     return new ResponseEntity(new SuccessMessage("Successfully posted"), HttpStatus.CREATED);
   }
@@ -52,8 +51,7 @@ public class NewsController {
   @GetMapping("/topnews")
   public ResponseEntity getTopThreeNews() {
 
-    List<News> topNews = newsService.findeTopThree();
-    List<TopNewsDTO> responseList = newsService.convertTopThree(topNews);
+    List<TopNewsDTO> responseList = newsService.convertTopThree();
     return ResponseEntity.status(200).body(responseList);
   }
 }

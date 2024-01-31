@@ -10,7 +10,7 @@ import java.util.List;
 public interface NewsService {
   News convertDtoToNews(NewNewsDTO newNewsDTO);
 
-  void saveNewNews(News news);
+  void saveNewNews(NewNewsDTO newNewsDTO);
 
   void deleteNews(Long id);
 
@@ -20,5 +20,5 @@ public interface NewsService {
 
   TopNewsDTO convertNewsToDTO(News news);
 
-  List<TopNewsDTO> convertTopThree(List<News> topNews);
+  List<TopNewsDTO> convertTopThree();
 }

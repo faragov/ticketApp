@@ -37,8 +37,9 @@ public class NewsServiceImpl implements NewsService {
   }
 
   @Override
-  public void saveNewNews(News news) {
+  public void saveNewNews(NewNewsDTO newNewsDTO) {
 
+    News news = convertDtoToNews(newNewsDTO);
     newsRepository.save(news);
   }
 
@@ -90,7 +91,9 @@ public class NewsServiceImpl implements NewsService {
   }
 
   @Override
-  public List<TopNewsDTO> convertTopThree(List<News> topNews) {
+  public List<TopNewsDTO> convertTopThree() {
+
+    List<News> topNews = findeTopThree();
 
     List<TopNewsDTO> topList = new ArrayList<>();
     for (int i = 0; i < topNews.size(); i++) {

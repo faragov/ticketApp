@@ -8,7 +8,7 @@ import java.util.Date;
 @Table(name = "news")
 public class News {
 
-  @jakarta.persistence.Id
+  @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long Id;
   private String title;

@@ -11,7 +11,7 @@ public class NewNewsDTO {
   @NotEmpty(message = "Author can not be empty")
   private String author;
 
-  public NewNewsDTO(String title, String content, String author, Long numberOfClicks) {
+  public NewNewsDTO(String title, String content, String author) {
     this.title = title;
     this.content = content;
     this.author = author;
