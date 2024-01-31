@@ -1,5 +1,6 @@
 package com.greenfox.avushugsformybugs.controllers;
 
+import com.greenfox.avushugsformybugs.dtos.ErrorMessage;
 import com.greenfox.avushugsformybugs.exceptions.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,13 @@ public class GlobalExceptionHandler {
   @ExceptionHandler({ProductNotFoundException.class})
   public ResponseEntity<Object> handleProductNotFoundException(ProductNotFoundException exception){
     return ResponseEntity
-            .status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(exception.getMessage());
+            .status(HttpStatus.NOT_FOUND)
+            .body(new ErrorMessage("Product not found"));
+  }
+  @ExceptionHandler({IllegalArgumentException.class})
+  public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException exception){
+    return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(new ErrorMessage("Illegal status"));
   }
 }

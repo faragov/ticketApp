@@ -5,6 +5,7 @@ import com.greenfox.avushugsformybugs.dtos.EditPurchaseDTO;
 import com.greenfox.avushugsformybugs.dtos.ErrorMessage;
 import com.greenfox.avushugsformybugs.dtos.NewPurchase;
 import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
+import com.greenfox.avushugsformybugs.exceptions.IllegalPurchaseStatusException;
 import com.greenfox.avushugsformybugs.exceptions.ProductNotFoundException;
 import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
@@ -37,37 +38,26 @@ public class PurchaseController {
   private PurchaseService purchaseService;
 
   @PostMapping("/purchases")
-  public ResponseEntity createPurchase(@Valid @RequestBody NewPurchase newPurchase, @AuthenticationPrincipal User user){
-
+  public ResponseEntity createPurchase(@Valid @RequestBody NewPurchase newPurchase, @AuthenticationPrincipal User user) throws ProductNotFoundException{
     purchaseService.createPurchase(user, newPurchase);
     return ResponseEntity.ok(new SuccessMessage("Successful purchase"));
   }
 
   @GetMapping("/purchases")
   public ResponseEntity showAllPurchases(@AuthenticationPrincipal User loginedUser, @RequestParam(required = false) PurchaseStatus status) {
-    try {
-      if (status == null) {
-        status = PurchaseStatus.PENDING;
-      }
-      if (!purchaseService.findPurchaseByUserIdAndStatus(loginedUser.getId(), status).isEmpty()) {
-        return ResponseEntity.status(201).body(purchaseService.getPurchaseDtos(loginedUser.getId(), status));
-      } else {
-        return ResponseEntity.status(201).body("No result");
-      }
-    } catch (IllegalArgumentException e) {
-      ErrorMessage errorMessage = new ErrorMessage("Unknown status");
-      return ResponseEntity.status(400).body(errorMessage);
+    if (status == null) {
+      status = PurchaseStatus.PENDING;
+    }
+    if (!purchaseService.findPurchaseByUserIdAndStatus(loginedUser.getId(), status).isEmpty()) {
+      return ResponseEntity.status(201).body(purchaseService.getPurchaseDtos(loginedUser.getId(), status));
+    } else {
+      return ResponseEntity.status(201).body("No result");
     }
   }
 
   @PutMapping("/api/purchases")
-  public ResponseEntity modifyPurchases(@AuthenticationPrincipal User loginedUser, @RequestBody EditPurchaseDTO editPurchase){
-    try{
-      purchaseService.checkStatus(editPurchase.getStatus());
-    } catch(Exception e){
-      ErrorMessage errorMessage = new ErrorMessage("Wrong status");
-      return ResponseEntity.status(401).body(errorMessage);
-    }
+  public ResponseEntity modifyPurchases(@AuthenticationPrincipal User loginedUser, @RequestBody EditPurchaseDTO editPurchase) throws IllegalPurchaseStatusException {
+    purchaseService.checkStatus(editPurchase.getStatus());
     purchaseService.editPurchases(loginedUser.getId(),editPurchase);
     SuccessMessage successMessage = new SuccessMessage("Success");
     return ResponseEntity.status(200).body(successMessage);
