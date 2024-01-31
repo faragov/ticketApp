@@ -4,6 +4,7 @@ import com.greenfox.avushugsformybugs.dtos.EditProductDTO;
 import com.greenfox.avushugsformybugs.dtos.NewProductDTO;
 import com.greenfox.avushugsformybugs.dtos.GetProductDTO;
 import com.greenfox.avushugsformybugs.dtos.GetProductListDTO;
+import com.greenfox.avushugsformybugs.exceptions.ProductNotFoundException;
 import com.greenfox.avushugsformybugs.models.entities.Product;
 import com.greenfox.avushugsformybugs.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -89,8 +89,13 @@ public class ProductServiceImpl implements ProductService {
     return productListDTO;
   }
 
-  @Override
-  public Optional<Product> findById(long productID) {
+  public Optional<Product> findByIdThrowsEx(long productID) throws ProductNotFoundException{
+    Product product = productRepository.findById(productID).orElse(null);
+    if(product==null){
+      throw new ProductNotFoundException("Product not found");
+    }
     return productRepository.findById(productID);
   }
+
+  public Optional<Product> findById(long productID){ return productRepository.findById(productID); }
 }
