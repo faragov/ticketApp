@@ -65,7 +65,7 @@ public class AuthenticationService {
     Optional<User> user = repository.findByEmail(email);
     if (user.isPresent()) {
       return false;
-    }else {
+    } else {
       return true;
     }
   }

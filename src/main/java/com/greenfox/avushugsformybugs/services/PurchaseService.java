@@ -13,13 +13,13 @@ import java.util.Set;
 
 public interface PurchaseService {
 
-    Set<Purchase> findPurchaseByUserIdAndStatus(Long userId, PurchaseStatus status);
+  Set<Purchase> findPurchaseByUserIdAndStatus(Long userId, PurchaseStatus status);
 
-    void saveAll(List<Purchase> purchases);
+  void saveAll(List<Purchase> purchases);
 
-    void createPurchase(User user, NewPurchase newPurchase) throws Exception;
+  void createPurchase(User user, NewPurchase newPurchase) throws Exception;
 
-    void checkStatus(PurchaseStatus status);
+  void checkStatus(PurchaseStatus status);
 
   List<PurchaseDto> getPurchaseDtos(Long userId, PurchaseStatus status);
 

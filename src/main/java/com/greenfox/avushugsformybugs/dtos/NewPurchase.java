@@ -6,33 +6,33 @@ import jakarta.validation.constraints.NotNull;
 
 public class NewPurchase {
 
-    @NotNull(message = "product ID can not be empty!")
-    private Long productID;
+  @NotNull(message = "product ID can not be empty!")
+  private Long productID;
 
-    @Min(value = 1, message = "amount can not be less than 1")
-    @Max(value = 10, message = "amount can not be larger than 10")
-    private Long amount;
+  @Min(value = 1, message = "amount can not be less than 1")
+  @Max(value = 10, message = "amount can not be larger than 10")
+  private Long amount;
 
-    public NewPurchase() {}
+  public NewPurchase() {}
 
-    public NewPurchase(Long productID, Long amount) {
-        this.productID = productID;
-        this.amount = amount;
-    }
+  public NewPurchase(Long productID, Long amount) {
+    this.productID = productID;
+    this.amount = amount;
+  }
 
-    public long getProductID() {
-        return productID;
-    }
+  public long getProductID() {
+    return productID;
+  }
 
-    public void setProductID(long productID) {
-        this.productID = productID;
-    }
+  public void setProductID(long productID) {
+    this.productID = productID;
+  }
 
-    public long getAmount() {
-        return amount;
-    }
+  public long getAmount() {
+    return amount;
+  }
 
-    public void setAmount(long amount) {
-        this.amount = amount;
-    }
+  public void setAmount(long amount) {
+    this.amount = amount;
+  }
 }

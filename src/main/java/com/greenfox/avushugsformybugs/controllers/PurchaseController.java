@@ -38,7 +38,7 @@ public class PurchaseController {
   @PostMapping("/purchases")
   public ResponseEntity createPurchase(@Valid @RequestBody NewPurchase newPurchase, @AuthenticationPrincipal User user) {
 
-    try{
+    try {
       purchaseService.createPurchase(user, newPurchase);
       return ResponseEntity.ok(new SuccessMessage("Successful purchase"));
     } catch (Exception e) {
@@ -64,10 +64,10 @@ public class PurchaseController {
   }
 
   @PutMapping("/api/purchases")
-  public ResponseEntity modifyPurchases(@AuthenticationPrincipal User loginedUser, @RequestBody EditPurchaseDTO editPurchase){
-    try{
+  public ResponseEntity modifyPurchases(@AuthenticationPrincipal User loginedUser, @RequestBody EditPurchaseDTO editPurchase) {
+    try {
       purchaseService.checkStatus(editPurchase.getStatus());
-    } catch(Exception e){
+    } catch (Exception e) {
       ErrorMessage errorMessage = new ErrorMessage("Wrong status");
       return ResponseEntity.status(401).body(errorMessage);
     }

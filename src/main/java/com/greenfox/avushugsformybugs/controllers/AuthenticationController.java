@@ -1,7 +1,6 @@
 package com.greenfox.avushugsformybugs.controllers;
 
 import com.greenfox.avushugsformybugs.dtos.ErrorMessage;
-import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
 import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationRequest;
 import com.greenfox.avushugsformybugs.dtos.auth.AuthenticationResponse;
 import com.greenfox.avushugsformybugs.services.AuthenticationService;
@@ -31,7 +30,7 @@ public class AuthenticationController {
   ) {
     if (service.checkIfEmailIsNotTaken(request)) {
       return ResponseEntity.ok(service.register(request));
-    }else {
+    } else {
       return ResponseEntity.badRequest().body(new ErrorMessage("Email is taken"));
     }
   }
