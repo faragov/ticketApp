@@ -4,15 +4,14 @@ import com.greenfox.avushugsformybugs.dtos.EditProductDTO;
 import com.greenfox.avushugsformybugs.dtos.NewProductDTO;
 import com.greenfox.avushugsformybugs.dtos.GetProductDTO;
 import com.greenfox.avushugsformybugs.dtos.GetProductListDTO;
+import com.greenfox.avushugsformybugs.exceptions.ProductNotFoundException;
 import com.greenfox.avushugsformybugs.models.entities.Product;
 import com.greenfox.avushugsformybugs.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -37,37 +36,30 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public void deleteProduct(Long id) {
-
-    Optional<Product> product = productRepository.findById(id);
-    if (product.isPresent()) {
-      Product foundProduct = product.get();
-      productRepository.delete(foundProduct);
-    }
+  public void deleteProduct(Long id) throws ProductNotFoundException {
+    Product product = this.findProductById(id);
+    productRepository.delete(product);
   }
 
   @Override
-  public void editProduct(Long id, EditProductDTO editProductDTO) {
-    Optional<Product> foundProduct = productRepository.findById(id);
-    if (foundProduct.isPresent()) {
-      if (editProductDTO.getName() != null) {
-        foundProduct.get().setName(editProductDTO.getName());
-      }
-      if (editProductDTO.getDuration() != null) {
-        foundProduct.get().setDuration(editProductDTO.getDuration());
-      }
-      if (editProductDTO.getType() != null) {
-        foundProduct.get().setType(editProductDTO.getType());
-      }
-      if (editProductDTO.getPrice() != null) {
-        foundProduct.get().setPrice(editProductDTO.getPrice());
-      }
-      if (editProductDTO.getDescription() != null) {
-        foundProduct.get().setDescription(editProductDTO.getDescription());
-      }
-
-      productRepository.save(foundProduct.get());
+  public void editProduct(Long id, EditProductDTO editProductDTO) throws ProductNotFoundException {
+    Product foundProduct = this.findProductById(id);
+    if (editProductDTO.getName() != null) {
+      foundProduct.setName(editProductDTO.getName());
     }
+    if (editProductDTO.getDuration() != null) {
+      foundProduct.setDuration(editProductDTO.getDuration());
+    }
+    if (editProductDTO.getType() != null) {
+      foundProduct.setType(editProductDTO.getType());
+    }
+    if (editProductDTO.getPrice() != null) {
+      foundProduct.setPrice(editProductDTO.getPrice());
+    }
+    if (editProductDTO.getDescription() != null) {
+      foundProduct.setDescription(editProductDTO.getDescription());
+    }
+    productRepository.save(foundProduct);
   }
 
   @Override
@@ -89,8 +81,7 @@ public class ProductServiceImpl implements ProductService {
     return productListDTO;
   }
 
-  @Override
-  public Optional<Product> findById(long productID) {
-    return productRepository.findById(productID);
+  public Product findProductById(long productID) throws ProductNotFoundException {
+    return productRepository.findById(productID).orElseThrow(() -> new ProductNotFoundException("Product not found!"));
   }
 }
