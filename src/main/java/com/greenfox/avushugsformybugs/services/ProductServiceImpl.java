@@ -10,7 +10,6 @@ import com.greenfox.avushugsformybugs.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public void deleteProduct(Long id) throws ProductNotFoundException{
+  public void deleteProduct(Long id) throws ProductNotFoundException {
     Product product = this.findProductById(id);
     productRepository.delete(product);
   }

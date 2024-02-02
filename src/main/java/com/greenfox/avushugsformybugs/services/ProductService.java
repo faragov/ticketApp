@@ -7,7 +7,6 @@ import com.greenfox.avushugsformybugs.models.entities.Product;
 import com.greenfox.avushugsformybugs.dtos.GetProductListDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductService {
   Product convertDtoToProduct(NewProductDTO newProductDTO);

@@ -1,7 +1,5 @@
 package com.greenfox.avushugsformybugs.dtos;
 
-import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
-
 import java.util.List;
 
 public class EditPurchaseDTO {
@@ -10,7 +8,7 @@ public class EditPurchaseDTO {
   List<Long> purchaseIds;
 
   public EditPurchaseDTO(String status, List<Long> purchaseIds) {
-    this.status=status;
+    this.status = status;
     this.purchaseIds = purchaseIds;
   }
 

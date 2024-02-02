@@ -2,14 +2,12 @@ package com.greenfox.avushugsformybugs.controllers;
 
 
 import com.greenfox.avushugsformybugs.dtos.EditPurchaseDTO;
-import com.greenfox.avushugsformybugs.dtos.ErrorMessage;
 import com.greenfox.avushugsformybugs.dtos.NewPurchase;
 import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
 import com.greenfox.avushugsformybugs.exceptions.IllegalPurchaseStatusException;
 import com.greenfox.avushugsformybugs.exceptions.ProductNotFoundException;
 import com.greenfox.avushugsformybugs.exceptions.PurchaseNotFoundException;
 import com.greenfox.avushugsformybugs.models.entities.User;
-import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
 import com.greenfox.avushugsformybugs.services.ProductService;
 import com.greenfox.avushugsformybugs.services.PurchaseService;
 import jakarta.validation.Valid;
@@ -20,9 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.greenfox.avushugsformybugs.dtos.ErrorMessage;
-import com.greenfox.avushugsformybugs.models.entities.User;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
