@@ -3,7 +3,9 @@ package com.greenfox.avushugsformybugs.services;
 import com.greenfox.avushugsformybugs.dtos.EditNewsDTO;
 import com.greenfox.avushugsformybugs.dtos.NewNewsDTO;
 import com.greenfox.avushugsformybugs.dtos.TopNewsDTO;
+import com.greenfox.avushugsformybugs.dtos.UserNewsDTO;
 import com.greenfox.avushugsformybugs.models.entities.News;
+import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.repositories.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -112,5 +114,27 @@ public class NewsServiceImpl implements NewsService {
       myNews.setNumberOfClicks(myNews.getNumberOfClicks() + 1);
       newsRepository.save(myNews);
     }
+  }
+
+  @Override
+  public void saveUserNews(User loginedUser, UserNewsDTO userNewsDTO) {
+
+    News news = convertUserDtoToNews(userNewsDTO, loginedUser);
+    newsRepository.save(news);
+  }
+
+  @Override
+  public News convertUserDtoToNews(UserNewsDTO userNewsDTO, User user) {
+
+    News news = new News();
+    String username = user.getUsername();
+
+    news.setContent(userNewsDTO.getContent());
+    news.setTitle(userNewsDTO.getTitle());
+    news.setAuthor(username);
+    news.setNumberOfClicks(0L);
+    news.setCreatedDate(new Date());
+
+    return news;
   }
 }
