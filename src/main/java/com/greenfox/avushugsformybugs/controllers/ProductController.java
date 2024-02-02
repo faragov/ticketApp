@@ -49,7 +49,7 @@ public class ProductController {
   }
 
   @GetMapping("/products")
-  public ResponseEntity getProducts(){
+  public ResponseEntity getProducts() {
     GetProductListDTO productListDTO = productService.listAllProducts();
     return ResponseEntity.status(200).body(productListDTO);
   }

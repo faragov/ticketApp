@@ -68,14 +68,14 @@ public class ProductServiceImpl implements ProductService {
     productRepository.save(newProduct);
   }
     
-  public List<Product> getAllProducts(){
+  public List<Product> getAllProducts() {
     return productRepository.findAll();
   }
 
-  public GetProductListDTO listAllProducts(){
+  public GetProductListDTO listAllProducts() {
     List<Product> productList = getAllProducts();
     List<GetProductDTO> productDTOList = new ArrayList<>();
-    for(int i=0;i<productList.size();i++){
+    for (int i = 0; i < productList.size(); i++) {
       productDTOList.add(new GetProductDTO(productList.get(i)));
     }
     GetProductListDTO productListDTO = new GetProductListDTO(productDTOList);
