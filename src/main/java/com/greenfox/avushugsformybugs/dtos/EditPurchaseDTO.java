@@ -5,16 +5,16 @@ import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
 import java.util.List;
 
 public class EditPurchaseDTO {
-  PurchaseStatus status;
+  String status;
 
   List<Long> purchaseIds;
 
-  public EditPurchaseDTO(PurchaseStatus status, List<Long> purchaseIds) {
+  public EditPurchaseDTO(String status, List<Long> purchaseIds) {
     this.status=status;
     this.purchaseIds = purchaseIds;
   }
 
-  public PurchaseStatus getStatus() {
+  public String getStatus() {
     return status;
   }
 
@@ -22,7 +22,7 @@ public class EditPurchaseDTO {
     return purchaseIds;
   }
 
-  public void setStatus(PurchaseStatus status) {
+  public void setStatus(String status) {
     this.status = status;
   }
 

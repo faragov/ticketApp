@@ -7,6 +7,7 @@ import com.greenfox.avushugsformybugs.dtos.NewPurchase;
 import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
 import com.greenfox.avushugsformybugs.exceptions.IllegalPurchaseStatusException;
 import com.greenfox.avushugsformybugs.exceptions.ProductNotFoundException;
+import com.greenfox.avushugsformybugs.exceptions.PurchaseNotFoundException;
 import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
 import com.greenfox.avushugsformybugs.services.ProductService;
@@ -44,21 +45,16 @@ public class PurchaseController {
   }
 
   @GetMapping("/purchases")
-  public ResponseEntity showAllPurchases(@AuthenticationPrincipal User loginedUser, @RequestParam(required = false) PurchaseStatus status) {
+  public ResponseEntity showAllPurchases(@AuthenticationPrincipal User loginedUser, @RequestParam(required = false) String status) throws IllegalPurchaseStatusException {
     if (status == null) {
-      status = PurchaseStatus.PENDING;
+      status = "PENDING";
     }
-    if (!purchaseService.findPurchaseByUserIdAndStatus(loginedUser.getId(), status).isEmpty()) {
-      return ResponseEntity.status(201).body(purchaseService.getPurchaseDtos(loginedUser.getId(), status));
-    } else {
-      return ResponseEntity.status(201).body("No result");
-    }
+    return ResponseEntity.status(201).body(purchaseService.getPurchaseDtos(loginedUser.getId(), status));
   }
 
-  @PutMapping("/api/purchases")
-  public ResponseEntity modifyPurchases(@AuthenticationPrincipal User loginedUser, @RequestBody EditPurchaseDTO editPurchase) throws IllegalPurchaseStatusException {
-    purchaseService.checkStatus(editPurchase.getStatus());
-    purchaseService.editPurchases(loginedUser.getId(),editPurchase);
+  @PutMapping("/purchases")
+  public ResponseEntity modifyPurchases(@AuthenticationPrincipal User loginedUser, @RequestBody EditPurchaseDTO editPurchase) throws IllegalPurchaseStatusException, PurchaseNotFoundException {
+    purchaseService.editPurchases(loginedUser.getId(), editPurchase);
     SuccessMessage successMessage = new SuccessMessage("Success");
     return ResponseEntity.status(200).body(successMessage);
   }

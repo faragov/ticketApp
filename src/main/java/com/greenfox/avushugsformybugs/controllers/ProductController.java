@@ -4,6 +4,7 @@ import com.greenfox.avushugsformybugs.dtos.EditProductDTO;
 import com.greenfox.avushugsformybugs.dtos.NewProductDTO;
 import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
 import com.greenfox.avushugsformybugs.dtos.GetProductListDTO;
+import com.greenfox.avushugsformybugs.exceptions.ProductNotFoundException;
 import com.greenfox.avushugsformybugs.models.entities.Product;
 import com.greenfox.avushugsformybugs.services.ProductService;
 import jakarta.validation.Valid;
@@ -32,7 +33,7 @@ public class ProductController {
   }
 
   @DeleteMapping("/admin/product/{id}")
-  public ResponseEntity deleteProductById(@PathVariable Long id) {
+  public ResponseEntity deleteProductById(@PathVariable Long id) throws ProductNotFoundException {
 
     productService.deleteProduct(id);
 
@@ -40,7 +41,7 @@ public class ProductController {
   }
 
   @PutMapping("/admin/product/{id}")
-  public ResponseEntity editProduct(@PathVariable Long id, @Valid @RequestBody EditProductDTO editProductDTO) {
+  public ResponseEntity editProduct(@PathVariable Long id, @Valid @RequestBody EditProductDTO editProductDTO) throws ProductNotFoundException {
 
     productService.editProduct(id, editProductDTO);
 
