@@ -3,7 +3,9 @@ package com.greenfox.avushugsformybugs.services;
 import com.greenfox.avushugsformybugs.dtos.EditNewsDTO;
 import com.greenfox.avushugsformybugs.dtos.NewNewsDTO;
 import com.greenfox.avushugsformybugs.dtos.TopNewsDTO;
+import com.greenfox.avushugsformybugs.dtos.UserNewsDTO;
 import com.greenfox.avushugsformybugs.models.entities.News;
+import com.greenfox.avushugsformybugs.models.entities.User;
 
 import java.util.List;
 
@@ -23,4 +25,8 @@ public interface NewsService {
   List<TopNewsDTO> convertTopThree();
 
   void increaseCount(Long id);
+
+  void saveUserNews(User loginedUser, UserNewsDTO userNewsDTO);
+
+  News convertUserDtoToNews(UserNewsDTO userNewsDTO, User user);
 }

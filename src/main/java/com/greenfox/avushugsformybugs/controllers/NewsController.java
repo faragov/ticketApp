@@ -1,14 +1,13 @@
 package com.greenfox.avushugsformybugs.controllers;
 
-import com.greenfox.avushugsformybugs.dtos.EditNewsDTO;
-import com.greenfox.avushugsformybugs.dtos.NewNewsDTO;
-import com.greenfox.avushugsformybugs.dtos.SuccessMessage;
-import com.greenfox.avushugsformybugs.dtos.TopNewsDTO;
+import com.greenfox.avushugsformybugs.dtos.*;
+import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.services.NewsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,5 +59,14 @@ public class NewsController {
     newsService.increaseCount(id);
 
     return new ResponseEntity(new SuccessMessage("Successfully changed"), HttpStatus.CREATED);
+  }
+
+  @PostMapping("/news")
+  public ResponseEntity makeNewsAsUser(@AuthenticationPrincipal User loginedUser,
+                                       @Valid @RequestBody UserNewsDTO userNewsDTO) {
+
+    newsService.saveUserNews(loginedUser, userNewsDTO);
+
+    return new ResponseEntity(new SuccessMessage("Successfully posted"), HttpStatus.CREATED);
   }
 }
