@@ -34,6 +34,11 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 
     implementation("org.springframework.boot:spring-boot-starter-validation")
+
+    // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    // https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
 }
 checkstyle {
     toolVersion = "8.40"

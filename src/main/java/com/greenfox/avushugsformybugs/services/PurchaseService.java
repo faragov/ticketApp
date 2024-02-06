@@ -12,6 +12,7 @@ import com.greenfox.avushugsformybugs.models.entities.User;
 import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
 
 import java.util.List;
+import java.util.Set;
 
 public interface PurchaseService {
   void saveAll(List<Purchase> purchases);
@@ -20,7 +21,7 @@ public interface PurchaseService {
 
   PurchaseStatus getPurchaseStatus(String status) throws IllegalPurchaseStatusException;
 
-  List<PurchaseDto> getPurchaseDtos(Long userId, String status) throws IllegalPurchaseStatusException;
+  Set<Purchase> getPurchases(Long userId, String status) throws IllegalPurchaseStatusException;
 
   void editPurchases(Long userId, EditPurchaseDTO editPurchase) throws IllegalPurchaseStatusException, PurchaseNotFoundException;
 

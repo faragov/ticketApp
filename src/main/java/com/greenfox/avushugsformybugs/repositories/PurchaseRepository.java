@@ -11,7 +11,7 @@ import java.util.Set;
 
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
 
-  Set<Purchase> findPurchaseByUserIdAndStatus(Long userId, PurchaseStatus status);
+  Set<Purchase> findPurchaseByUserIdAndStatusOrderByProductId(Long userId, PurchaseStatus status);
 
   @Query(value = "SELECT * FROM purchases WHERE id = :purchaseId AND user_id = :userId", nativeQuery = true)
   Optional<Purchase> findPurchaseByIdAndUserId(@Param("purchaseId") Long id, @Param("userId") Long userId);
