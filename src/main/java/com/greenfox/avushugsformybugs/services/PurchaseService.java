@@ -23,6 +23,8 @@ public interface PurchaseService {
 
   Set<Purchase> getPurchases(Long userId, String status) throws IllegalPurchaseStatusException;
 
+  Set<Purchase> getPurchasesWithStatus(Long userId, String status) throws IllegalPurchaseStatusException;
+
   void editPurchases(Long userId, EditPurchaseDTO editPurchase) throws IllegalPurchaseStatusException, PurchaseNotFoundException;
 
 }

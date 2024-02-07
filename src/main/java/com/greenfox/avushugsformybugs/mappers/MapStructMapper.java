@@ -1,5 +1,6 @@
 package com.greenfox.avushugsformybugs.mappers;
 
+import com.greenfox.avushugsformybugs.dtos.BoughtPurchaseDTO;
 import com.greenfox.avushugsformybugs.dtos.PendingPurchaseDTO;
 import com.greenfox.avushugsformybugs.models.entities.Purchase;
 import org.mapstruct.Mapper;
@@ -15,4 +16,6 @@ public interface MapStructMapper {
   PendingPurchaseDTO purchaseToPendingDTO(Purchase purchase);
 
   Set<PendingPurchaseDTO> purchaseSetToPendingDTOSet(Set<Purchase> purchases);
+
+  Set<BoughtPurchaseDTO> boughtPurchaseSetToDTOSet(Set<Purchase> purchases);
 }

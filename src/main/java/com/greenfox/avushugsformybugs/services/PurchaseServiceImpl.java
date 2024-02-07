@@ -47,7 +47,13 @@ public class PurchaseServiceImpl implements PurchaseService {
     return purchaseRepository.findPurchaseByUserIdAndStatusOrderByProductId(userId, purchaseStatus);
   }
 
-  public void editPurchases(Long userId, EditPurchaseDTO editPurchase) throws IllegalPurchaseStatusException, PurchaseNotFoundException {
+  @Override
+  public Set<Purchase> getPurchasesWithStatus(Long userId, String status) throws IllegalPurchaseStatusException {
+    PurchaseStatus purchaseStatus = getPurchaseStatus(status);
+    return purchaseRepository.findPurchasesByUserIdAndStatus(userId, purchaseStatus);
+  }
+
+  public void editPurchases (Long userId, EditPurchaseDTO editPurchase) throws IllegalPurchaseStatusException, PurchaseNotFoundException {
     PurchaseStatus status = this.getPurchaseStatus(editPurchase.getStatus());
     List<Purchase> updatedPurchases = new ArrayList<>();
     for (int i = 0; i < editPurchase.getPurchaseIds().size(); i++) {

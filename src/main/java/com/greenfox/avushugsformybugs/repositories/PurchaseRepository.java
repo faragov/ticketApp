@@ -15,4 +15,6 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
 
   @Query(value = "SELECT * FROM purchases WHERE id = :purchaseId AND user_id = :userId", nativeQuery = true)
   Optional<Purchase> findPurchaseByIdAndUserId(@Param("purchaseId") Long id, @Param("userId") Long userId);
+
+  Set<Purchase> findPurchasesByUserIdAndStatus(Long userId, PurchaseStatus purchaseStatus);
 }

@@ -10,9 +10,11 @@ import com.greenfox.avushugsformybugs.exceptions.ProductNotFoundException;
 import com.greenfox.avushugsformybugs.exceptions.PurchaseNotFoundException;
 import com.greenfox.avushugsformybugs.mappers.MapStructMapper;
 import com.greenfox.avushugsformybugs.models.entities.User;
+import com.greenfox.avushugsformybugs.models.enums.PurchaseStatus;
 import com.greenfox.avushugsformybugs.services.PurchaseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -45,11 +47,12 @@ public class PurchaseController {
   }
 
   @GetMapping("/purchases")
-  public ResponseEntity<Set<PendingPurchaseDTO>> showAllPurchases(@AuthenticationPrincipal User loggedInUser, @RequestParam(required = false) String status) throws IllegalPurchaseStatusException {
-    if (status == null) {
-      status = "PENDING";
+  public ResponseEntity showAllPurchases(@AuthenticationPrincipal User loggedInUser, @RequestParam(required = false) String status) throws IllegalPurchaseStatusException {
+    if (!status.equalsIgnoreCase("PENDING")) {
+      return ResponseEntity.status(200).body(mapper.boughtPurchaseSetToDTOSet(purchaseService.getPurchasesWithStatus(loggedInUser.getId(), status)));
+    } else {
+      return ResponseEntity.status(201).body(mapper.purchaseSetToPendingDTOSet(purchaseService.getPurchases(loggedInUser.getId(), "PENDING")));
     }
-    return ResponseEntity.status(201).body(mapper.purchaseSetToPendingDTOSet(purchaseService.getPurchases(loggedInUser.getId(), status)));
   }
 
   @PutMapping("/purchases")
